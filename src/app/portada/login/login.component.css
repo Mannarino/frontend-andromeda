@@ -1,0 +1,7 @@
+.login-botones{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	line-height: 40px;
+	height: 40px;
+}

@@ -1,0 +1,40 @@
+<p>registro works!</p>
+<form [formGroup]="form">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">name</label>
+         <input type="text" class="form-control" formControlName="name" id="exampleFormControlInput1" >
+         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlInput2" class="form-label">Email address</label>
+     <input type="email" class="form-control" formControlName="email"  id="exampleFormControlInput2" placeholder="name@example.com">
+     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+            email is required.
+        </div>
+        <div *ngIf="email.errors.email">
+            has to be a email.
+        </div>
+     </div>
+    </div>
+    <div class="mb-3">
+     <label for="exampleFormControlInput3" class="form-label">password</label>
+     <input type="password" class="form-control" formControlName="password" id="exampleFormControlInput3" >
+     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+            password is required.
+        </div>
+     </div>
+    </div>
+
+    <div class="login-botones">
+	
+	<button type="button" [routerLink]="['/login']"class="btn btn-primary">loguin</button>
+	
+	<button type="button" [routerLink]="['/registrarse']" class="btn btn-link">registrate</button>
+    </div>
+</form>
