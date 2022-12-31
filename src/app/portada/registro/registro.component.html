@@ -9,6 +9,7 @@
           </div>
         </div>
     </div>
+
     <div class="mb-3">
     <label for="exampleFormControlInput2" class="form-label">Email address</label>
      <input type="email" class="form-control" formControlName="email"  id="exampleFormControlInput2" placeholder="name@example.com">
@@ -20,7 +21,16 @@
             has to be a email.
         </div>
      </div>
+     <div *ngIf="emailAvailable && (email.dirty || email.touched)" >
+        <div *ngIf="emailAvailable" class="alert alert-success" >
+            email available 
+        </div>
+        <div *ngIf="emailNotAvailable" class="alert alert-danger">
+            email not available
+        </div>
+     </div>
     </div>
+
     <div class="mb-3">
      <label for="exampleFormControlInput3" class="form-label">password</label>
      <input type="password" class="form-control" formControlName="password" id="exampleFormControlInput3" >
@@ -32,9 +42,9 @@
     </div>
 
     <div class="login-botones">
+	<button type="button" [routerLink]="['/registrarse']" [disabled]="!form.valid" class="btn btn-primary">registrate</button>
+	<button type="button" [routerLink]="['/login']" class="btn btn-link">loguin</button>
 	
-	<button type="button" [routerLink]="['/login']"class="btn btn-primary">loguin</button>
 	
-	<button type="button" [routerLink]="['/registrarse']" class="btn btn-link">registrate</button>
     </div>
 </form>
