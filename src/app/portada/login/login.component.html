@@ -1,18 +1,34 @@
 <div  class="alert alert-primary" role="alert">
   log in
 </div>
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">password</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" >
-</div>
+<form [formGroup]="form">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+    <input type="email" class="form-control" formControlName="email" id="exampleFormControlInput1" placeholder="name@example.com">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+      <div *ngIf="email.errors.required" class="alert alert-danger">
+          email is required.
+      </div>
+      <div *ngIf="email.errors.email" class="alert alert-danger">
+          has to be a email.
+      </div>  
+    </div> 
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">password</label>
+    <input type="email" class="form-control"  formControlName="password" id="exampleFormControlInput1" >
+  </div>
 
 
-<div class="login-botones">
-	<button type="button" class="btn btn-primary">loguin</button>
+  <div class="login-botones">
+    <button type="button" class="btn btn-primary" [disabled]="!form.valid"  (click)="login()">loguin</button>
+  </div>
+</form>
+<div class="alert alert-danger" *ngIf="LoggedBadly" role="alert">
+ incorrect log in, your password or email is wrong,
+ try again
 </div>
-
+<div class="alert alert-danger" *ngIf="serverInternalError" role="alert">
+  the server is not working right now, some problem are happening, try more later
+ </div>
 <div id="emailHelp" class="form-text">Don't you have an account? you can create you own account <a [routerLink]="['/regist']">here</a> </div>
