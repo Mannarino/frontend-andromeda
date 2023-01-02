@@ -1,4 +1,7 @@
-<p>registro works!</p>
+
+<div  class="alert alert-primary" role="alert">
+    sign up account
+</div>
 <form [formGroup]="form">
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">name</label>
@@ -11,24 +14,24 @@
     </div>
 
     <div class="mb-3">
-    <label for="exampleFormControlInput2" class="form-label">Email address</label>
-     <input type="email" class="form-control" formControlName="email"  id="exampleFormControlInput2" placeholder="name@example.com">
-     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-        <div *ngIf="email.errors.required">
-            email is required.
-        </div>
-        <div *ngIf="email.errors.email">
-            has to be a email.
-        </div>
-     </div>
-     <div *ngIf="emailAvailable && (email.dirty || email.touched)" >
-        <div *ngIf="emailAvailable" class="alert alert-success" >
-            email available 
-        </div>
-        <div *ngIf="emailNotAvailable" class="alert alert-danger">
-            email not available
-        </div>
-     </div>
+        <label for="exampleFormControlInput2" class="form-label">Email address</label>
+        <input type="email" class="form-control" formControlName="email"  id="exampleFormControlInput2" placeholder="name@example.com">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+            <div *ngIf="email.errors.required" class="alert alert-danger">
+                email is required.
+            </div>
+            <div *ngIf="email.errors.email" class="alert alert-danger">
+                has to be a email.
+            </div>
+            <div *ngIf="emailAvailable && (email.dirty || email.touched)" >
+                <div *ngIf="emailAvailable" class="alert alert-success" >
+                    email available 
+                </div>
+                <div *ngIf="emailNotAvailable" class="alert alert-danger">
+                    email not available
+                </div>
+            </div>
+        </div> 
     </div>
 
     <div class="mb-3">
@@ -42,9 +45,11 @@
     </div>
 
     <div class="login-botones">
-	<button type="button" [routerLink]="['/registrarse']" [disabled]="!form.valid" class="btn btn-primary">registrate</button>
-	<button type="button" [routerLink]="['/login']" class="btn btn-link">loguin</button>
-	
-	
+	    <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="regist()">registrate</button>
     </div>
+    
+    <div id="emailHelp" class="form-text">Do you have already an account?then go to <a [routerLink]="['/login']">log in</a> </div>
 </form>
+<div class="alert alert-success" *ngIf="successRegisted" role="alert">
+    you have registed with success
+  </div>

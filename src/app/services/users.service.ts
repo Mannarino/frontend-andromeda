@@ -14,4 +14,7 @@ export class UsersService {
       .set('email', email);
     return this.http.get(`${environment.url_endpoint}/users/checkEmailAvailable`,{ headers })
   }
+  createUser(form){
+    return this.http.post(`${environment.url_endpoint}/users/regist`,form)
+  }
 }
