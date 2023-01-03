@@ -1,3 +1,8 @@
+:host{
+	align-self: center;
+	justify-self: center;
+	height: 100%;
+}
 .login-botones{
 	display: flex;
 	justify-content: space-around;

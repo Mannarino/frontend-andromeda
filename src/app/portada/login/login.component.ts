@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from 'src/app/interfaces/login';
 import { LoginService } from 'src/app/services/login.service';
+import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
@@ -15,7 +16,9 @@ export class LoginComponent implements OnInit {
     email: new FormControl('',[Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
-  constructor(private loginService:LoginService,private router: Router) { }
+  constructor(private loginService:LoginService,
+              private router: Router,
+              private handleTokens:HandleTokensService) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +31,8 @@ export class LoginComponent implements OnInit {
       this.form.reset()
       console.log( value)
       if(value.logged){
-        this.router.navigate(['/home'], { queryParams: { email: value.email }} )
+        this.handleTokens.saveToken(value.token)
+        this.router.navigate(['/home'], { queryParams: { email: value.email , name : value.name}} )
       }
       if(value.message=="error interno del servidor"){
         this.serverInternalError =true

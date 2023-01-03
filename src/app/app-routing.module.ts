@@ -4,6 +4,7 @@ import { PortadaComponent } from './portada/portada.component';
 import { LoginComponent } from './portada/login/login.component';
 import { RegistroComponent } from './portada/registro/registro.component';
 import { HomeComponent } from './pagesPriv/home/home.component';
+import { FirstLevelGuard } from './guardianes/first-level.guard';
 const routes: Routes = [
 	{path:'',
 	component:PortadaComponent,
@@ -12,7 +13,7 @@ const routes: Routes = [
 		{ path:'login', component: LoginComponent},
 		{ path:'regist', component: RegistroComponent}
 	]},
-	{path:'home',component:HomeComponent}
+	{path:'home',component:HomeComponent , canActivate: [FirstLevelGuard]}
 
 ];
 
