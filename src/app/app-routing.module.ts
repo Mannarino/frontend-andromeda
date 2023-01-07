@@ -13,7 +13,10 @@ const routes: Routes = [
 		{ path:'login', component: LoginComponent},
 		{ path:'regist', component: RegistroComponent}
 	]},
-	{path:'home',component:HomeComponent , canActivate: [FirstLevelGuard]}
+	{path:'home',component:HomeComponent , canActivate: [FirstLevelGuard]},
+	{path:'cms',
+		loadChildren: () => import('../app/modules/cms/cms.module').then(m => m.CmsModule)      
+	}
 
 ];
 

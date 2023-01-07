@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
       console.log( value)
       if(value.logged){
         this.handleTokens.saveToken(value.token)
-        this.router.navigate(['/home'], { queryParams: { email: value.email , name : value.name}} )
+        this.loginService.saveProfile(value.email,value.name)
+        this.router.navigate(['/home'] )
       }
       if(value.message=="error interno del servidor"){
         this.serverInternalError =true

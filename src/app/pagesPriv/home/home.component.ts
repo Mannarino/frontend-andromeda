@@ -1,22 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  name
-  constructor(private route: ActivatedRoute) { }
+  name =""
+  constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      // do something with the params
-      const email = params['email'];
-      const name = params['name'];
-      this.name= name
-      console.log( email + ' ' + name)
-    });
+    const profile = this.loginService.getProfile()
+    this.name = profile.name
+    console.log(profile)
   }
 
 }

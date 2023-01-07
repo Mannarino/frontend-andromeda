@@ -1,0 +1,13 @@
+:host{
+    display: grid;
+    grid-template-rows: 80px  80%;
+    grid-template-columns: 19% 1% 80%;
+    height: 100%;
+    width: 90%;
+    margin: auto;
+    border: 1px black solid;
+}
+.one {
+    grid-column: 1 / 4;
+    grid-row: 1;
+  }

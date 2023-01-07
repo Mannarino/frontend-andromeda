@@ -11,4 +11,19 @@ export class LoginService {
   loginUser(form){
     return this.http.post(`${environment.url_endpoint}/users/login`,form)
   }
+  saveProfile(email,name){
+    localStorage.setItem('ProfileName',name)
+    localStorage.setItem('ProfileEmail',email)
+  }
+  getProfile(){
+    const profile = {
+      name : localStorage.getItem('ProfileName'),
+      email : localStorage.getItem('ProfileEmail')
+    }
+    return profile
+  }
+  removeProfile(){
+    localStorage.removeItem('ProfileName')
+    localStorage.removeItem('ProfileEmail')
+  }  
 }
