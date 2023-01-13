@@ -12,6 +12,7 @@ export class RegistroComponent implements OnInit {
   emailAvailable = false
   emailNotAvailable = false
   successRegisted = false
+  showAvailableEmailMessage= false
   form = new FormGroup({
     name: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -23,18 +24,24 @@ export class RegistroComponent implements OnInit {
     // start check available email
       this.email.valueChanges
       .pipe(
-        debounceTime(2000)
+        debounceTime(500)
       )
       .subscribe( (value) =>{
             console.log(value)
-           this.usersService.checkEmail(value)
-              .subscribe((value:CheckEmail) => {
-                if(value.available){
-                  this.emailAvailable=true
-                }else {
-                  this.emailNotAvailable =true
-                }
-              })
+          if (!/\S+@\S+\.\S+/.test(value)){
+            this.showAvailableEmailMessage = false }
+          if(/\S+@\S+\.\S+/.test(value)){
+              this.usersService.checkEmail(value)
+                            .subscribe((value:CheckEmail) => {
+                              if(value.available){
+                                this.showAvailableEmailMessage = true
+                                this.emailAvailable=true
+                              }else {
+                                this.emailNotAvailable =true
+                              }
+                            })
+          }
+           
       })
     // end check available email
   }

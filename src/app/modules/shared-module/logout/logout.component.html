@@ -1,0 +1,14 @@
+
+<!-- Example single danger button -->
+<div class="btn-group">
+    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Action
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">{{profile?.name}}</a></li>
+      <li><a class="dropdown-item" href="#">{{profile?.email}}</a></li>
+      <li><a class="dropdown-item" href="#">membresia: <span class="badge text-bg-info">{{profile?.membresia}} </span></a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#" (click)="makeLogout()">Logout</a></li>
+    </ul>
+  </div>

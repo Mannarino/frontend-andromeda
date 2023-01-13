@@ -1,0 +1,29 @@
+<form [formGroup]="form">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+      <input type="email" class="form-control" formControlName="email" id="exampleFormControlInput1" placeholder="name@example.com">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+        <div *ngIf="email.errors.required" class="alert alert-danger">
+            email is required.
+        </div>
+        <div *ngIf="email.errors.email" class="alert alert-danger">
+            has to be a email.
+        </div>  
+      </div> 
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">rol</label>
+      <input type="email" class="form-control"  formControlName="rol" id="exampleFormControlInput1" >
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">name</label>
+        <input type="email" class="form-control"  formControlName="name" id="exampleFormControlInput1" >
+    </div>
+   
+    
+  
+    <div class="login-botones">
+      <button type="button" class="btn btn-primary" [disabled]="!form.valid"  (click)="update()">loguin</button>
+    </div>
+  </form>
+  

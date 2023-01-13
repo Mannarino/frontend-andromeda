@@ -21,17 +21,19 @@
                 email is required.
             </div>
             <div *ngIf="email.errors.email" class="alert alert-danger">
-                has to be a email.
+                has to be a email.    
             </div>
-            <div *ngIf="emailAvailable && (email.dirty || email.touched)" >
-                <div *ngIf="emailAvailable" class="alert alert-success" >
-                    email available 
-                </div>
-                <div *ngIf="emailNotAvailable" class="alert alert-danger">
-                    email not available
-                </div>
+        </div>   
+        <div *ngIf=" showAvailableEmailMessage" >
+           <div *ngIf="emailAvailable && (email.dirty || email.touched) " >
+                    <div *ngIf="emailAvailable" class="alert alert-success" >
+                        email available 
+                    </div>
+                    <div *ngIf="emailNotAvailable" class="alert alert-danger">
+                        email not available
+                    </div>
             </div>
-        </div> 
+        </div>   
     </div>
 
     <div class="mb-3">

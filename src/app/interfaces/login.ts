@@ -1,7 +1,14 @@
 export interface Login {
-    token:string,
+    data:{
+        token:string,
+        user:{
+           name:string,
+           email:string,
+           rol:string
+        }
+    }
     message:string,
-    logged:boolean,
-    email:string,
-    name:string
+    operation:{
+        login:boolean,
+    }  
 }

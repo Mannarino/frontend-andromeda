@@ -10,6 +10,8 @@ import { PortadaComponent } from './portada/portada.component';
 import { LoginComponent } from './portada/login/login.component';
 import { RegistroComponent } from './portada/registro/registro.component';
 import { HomeComponent } from './pagesPriv/home/home.component';
+import { SharedModuleModule } from './modules/shared-module/shared-module.module';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { HomeComponent } from './pagesPriv/home/home.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

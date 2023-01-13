@@ -1,1 +1,16 @@
-<p>administrar-usuarios works!</p>
+
+<div class="card" style="width: 18rem;"  *ngFor="let user of usuarios">
+    <div class="card-body">
+      <h5 class="card-title">{{user?.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{user.rol}}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{user.email}}</h6>
+      <a [routerLink]="['/cms/edit-users'] " 
+      [queryParams]=" { name: user.name ,
+                        email:user.email,
+                        _id: user._id,
+                        rol:user.rol} "
+      class="card-link">Card link</a>
+                       
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>

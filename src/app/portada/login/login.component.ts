@@ -29,16 +29,17 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.form.value)
     .subscribe( (value:Login) => {
       this.form.reset()
-      console.log( value)
-      if(value.logged){
-        this.handleTokens.saveToken(value.token)
-        this.loginService.saveProfile(value.email,value.name)
+      //console.log( value)
+      //console.log( value.operation.login)
+      if(value.operation.login){
+        this.handleTokens.saveToken(value.data.token)
+        this.loginService.saveProfile(value.data.user.email,value.data.user.name,value.data.user.rol)
         this.router.navigate(['/home'] )
       }
       if(value.message=="error interno del servidor"){
         this.serverInternalError =true
       }
-      if(!value.logged){
+      if(!value.operation.login){
         this.LoggedBadly =true
       }
     })

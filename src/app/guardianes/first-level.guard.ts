@@ -16,6 +16,7 @@ export class FirstLevelGuard implements CanActivate {
       return true
     }else{
       alert("not, u can't go there")
+      this.router.navigate(['/login'])
       return false;
     }
       

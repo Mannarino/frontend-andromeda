@@ -17,4 +17,7 @@ export class UsersService {
   createUser(form){
     return this.http.post(`${environment.url_endpoint}/users/regist`,form)
   }
+  getAllUser(){
+    return this.http.get(`${environment.url_endpoint}/users/`)
+  }
 }
