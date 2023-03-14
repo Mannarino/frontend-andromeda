@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
   get email() { return this.form.get('email'); }
   get password() { return this.form.get('password'); }
   login(){
+    this.LoggedBadly= false
+    this.serverInternalError=false
+    //console.log(this.form.value)
     this.loginService.loginUser(this.form.value)
     .subscribe( (value:Login) => {
       this.form.reset()
@@ -37,11 +40,20 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home'] )
       }
       if(value.message=="error interno del servidor"){
-        this.serverInternalError =true
+        
       }
-      if(!value.operation.login){
+      
+    },error=>{
+      console.log(error.status)
+      if(error.status===500){
         this.LoggedBadly =true
       }
+      if(error.status===0){
+        this.serverInternalError =true
+      }
+      console.log()
+      console.log('hubo un error')
     })
+    
   }
 }
