@@ -7,8 +7,10 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { MenuSuperiorComponent } from './admin-home/components/menu-superior/menu-superior.component';
 import { MenuLateralComponent } from './admin-home/components/menu-lateral/menu-lateral.component';
 import { AdministrarUsuariosComponent } from './admin-home/pages/administrar-usuarios/administrar-usuarios.component';
-import { EditarUsuariosComponent } from './admin-home/pages/editar-usuarios/editar-usuarios.component';
-import { SharedModuleModule } from '../shared-module/shared-module.module';
+
+import { SharedModuleModule } from '../shared-components/shared-module.module';
+import { CrearComponent } from './admin-home/pages/people/crear.component';
+import { EditarUsuariosComponent } from './admin-home/pages/administrar-usuarios/editar-usuarios.component';
 
 
 
@@ -18,7 +20,8 @@ import { SharedModuleModule } from '../shared-module/shared-module.module';
 @NgModule({
   declarations: [  AdminHomeComponent,
      MenuSuperiorComponent, MenuLateralComponent, AdministrarUsuariosComponent,
-     EditarUsuariosComponent],
+     EditarUsuariosComponent,
+     CrearComponent],
   imports: [
     CommonModule,
     CmsRoutingModule,

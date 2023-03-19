@@ -20,15 +20,16 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private handleTokens:HandleTokensService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   
   get email() { return this.form.get('email'); }
   get password() { return this.form.get('password'); }
+
   login(){
     this.LoggedBadly= false
     this.serverInternalError=false
     //console.log(this.form.value)
+    if(!this.form.valid){return console.log('not valid form')}
     this.loginService.loginUser(this.form.value)
     .subscribe( (value:Login) => {
       this.form.reset()
@@ -39,10 +40,6 @@ export class LoginComponent implements OnInit {
         this.loginService.saveProfile(value.data.user.email,value.data.user.name,value.data.user.rol)
         this.router.navigate(['/home'] )
       }
-      if(value.message=="error interno del servidor"){
-        
-      }
-      
     },error=>{
       console.log(error.status)
       if(error.status===500){
@@ -51,9 +48,13 @@ export class LoginComponent implements OnInit {
       if(error.status===0){
         this.serverInternalError =true
       }
-      console.log()
       console.log('hubo un error')
-    })
-    
+    })  
   }
+
+  //method called when user press enter key------
+  enterEvent() {
+    this.login() 
+  }
+  //---------------------------------------------
 }

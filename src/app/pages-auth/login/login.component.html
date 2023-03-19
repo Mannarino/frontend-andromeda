@@ -1,7 +1,13 @@
+<!-- title-->
 <div  class="alert alert-primary" role="alert">
   log in
 </div>
+<!--end title-->
+
+
+<!-- form grup-->
 <form [formGroup]="form">
+  <!-- input email adress-->
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Email address</label>
     <input type="email" class="form-control" formControlName="email" id="exampleFormControlInput1" placeholder="name@example.com">
@@ -14,16 +20,23 @@
       </div>  
     </div> 
   </div>
+  <!--end input email adress-->
+  <!-- input password-->
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">password</label>
-    <input type="email" class="form-control"  formControlName="password" id="exampleFormControlInput1" >
+    <input type="email" class="form-control" (keydown.enter)="enterEvent()" formControlName="password" id="exampleFormControlInput1" >
   </div>
-
-
+  <!--end input password-->
+  <!-- button of login-->
   <div class="login-botones">
-    <button type="button" class="btn btn-primary" [disabled]="!form.valid"  (click)="login()">loguin</button>
+    <button type="button" class="btn btn-primary" 
+    [disabled]="!form.valid"   (click)="login()">loguin</button>
   </div>
+  <!--end button of login-->
 </form>
+<!--end form grup-->
+
+<!-- messages of validation-->
 <div class="alert alert-danger" *ngIf="LoggedBadly" role="alert">
  incorrect log in, your password or email is wrong,
  try again
@@ -32,3 +45,4 @@
   the server is not working right now, some problem are happening, try more later
  </div>
 <div id="emailHelp" class="form-text">Don't you have an account? you can create you own account <a [routerLink]="['/regist']">here</a> </div>
+<!-- end messages of validation-->

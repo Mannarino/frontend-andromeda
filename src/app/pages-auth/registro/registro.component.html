@@ -1,8 +1,12 @@
-
+<!--title-->
 <div  class="alert alert-primary" role="alert">
     sign up account
 </div>
+<!-- end title-->
+
+<!--form group-->
 <form [formGroup]="form">
+    <!-- input name-->
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">name</label>
          <input type="text" class="form-control" formControlName="name" id="exampleFormControlInput1" >
@@ -12,7 +16,8 @@
           </div>
         </div>
     </div>
-
+    <!--end input name-->
+    <!-- input email-->
     <div class="mb-3">
         <label for="exampleFormControlInput2" class="form-label">Email address</label>
         <input type="email" class="form-control" formControlName="email"  id="exampleFormControlInput2" placeholder="name@example.com">
@@ -35,7 +40,8 @@
             </div>
         </div>   
     </div>
-
+     <!-- end input email-->
+      <!-- input password-->
     <div class="mb-3">
      <label for="exampleFormControlInput3" class="form-label">password</label>
      <input type="password" class="form-control" formControlName="password" id="exampleFormControlInput3" >
@@ -45,13 +51,15 @@
         </div>
      </div>
     </div>
-
+     <!-- end input password-->
+    <!-- button to regist-->
     <div class="login-botones">
 	    <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="regist()">registrate</button>
     </div>
-    
+     <!-- end button to regist-->
     <div id="emailHelp" class="form-text">Do you have already an account?then go to <a [routerLink]="['/login']">log in</a> </div>
 </form>
+ <!-- end form group-->
 <div class="alert alert-success" *ngIf="successRegisted" role="alert">
     you have registed with success
-  </div>
+</div>

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PortadaComponent } from './portada/portada.component';
-import { LoginComponent } from './portada/login/login.component';
-import { RegistroComponent } from './portada/registro/registro.component';
-import { HomeComponent } from './pagesPriv/home/home.component';
+import { PortadaComponent } from './pages-auth/portada.component';
+import { LoginComponent } from './pages-auth/login/login.component';
+import { RegistroComponent } from './pages-auth/registro/registro.component';
+import { HomeComponent } from './pages-go-after-login/home/home.component';
 import { FirstLevelGuard } from './guardianes/first-level.guard';
 const routes: Routes = [
 	{path:'',
@@ -15,7 +15,7 @@ const routes: Routes = [
 	]},
 	{path:'home',component:HomeComponent , canActivate: [FirstLevelGuard]},
 	{path:'cms',
-		loadChildren: () => import('../app/modules/cms/cms.module').then(m => m.CmsModule)      
+		loadChildren: () => import('./page-admin-cms/cms.module').then(m => m.CmsModule)      
 	}
 
 ];
