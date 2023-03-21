@@ -1,0 +1,91 @@
+
+<!--title-->
+<div  class="alert alert-primary col-6 " role="alert">
+    create person
+</div>
+<!-- end title-->
+
+<!--form group-->
+<form [formGroup]="form">
+    <!-- input name-->
+    <div class="mb-3 col-6">
+        <label for="exampleFormControlInput1" class="form-label">name</label>
+         <input type="text" class="form-control" formControlName="name" id="exampleFormControlInput1" >
+         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+    </div>
+    <!--end input name-->
+    <!-- input photo-->
+    <div class="mb-3 col-6">
+        <label for="exampleFormControlInput2" class="form-label">photo</label>
+         <input type="text" class="form-control" formControlName="photo" id="exampleFormControlInput2" >
+         <div *ngIf="photo.invalid && (photo.dirty || photo.touched)" class="alert alert-danger">
+            <div *ngIf="photo.errors.required">
+            photo is required.
+          </div>
+        </div>
+    </div>
+    <!--end input photo-->
+    <!-- input category-->
+    <div class="mb-3 col-6">
+     <label for="exampleFormControlInput3" class="form-label">category</label>
+     <select class="form-select" aria-label="Default select example" formControlName="category" id="exampleFormControlInput3" >
+      <option value="man">man</option>
+      <option value="woman">woman</option>
+      <option value="not-specified">not-specified</option>
+    </select>
+     <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+        <div *ngIf="category.errors.required">
+            category is required.
+        </div>
+     </div>
+    </div>
+    <!-- end input category-->
+    <!-- input birthDay  -->
+    <div class="mb-3 col-6 ">
+      <mat-form-field class="example-full-width"  appearance="fill">
+        <mat-label>Choose a date of birthDay</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDay">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- end input bitrhDay -->
+    <!-- select viewAllowed-->
+    <div class="mb-3 col-6" id="exampleFormControlInput5">
+      <label for="exampleFormControlInput4" class="form-label">view Allowed </label>
+      <select class="form-select" aria-label="Default select example" id="exampleFormControlInput5"  formControlName="viewAllowed">
+        <option value="free">free</option>
+        <option value="gold">gold</option>
+      </select>
+      <div *ngIf="viewAllowed.invalid && (viewAllowed.dirty || viewAllowed.touched)" class="alert alert-danger">
+        <div *ngIf="viewAllowed.errors.required">
+            viewAllowed is required.
+        </div>
+     </div>
+    </div>
+    <!-- end select viewAllowed-->
+    <!-- button to create person-->
+    <div class="login-botones">
+	    <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="createPerson()">registrate</button>
+    </div>
+     <!-- end button to create person-->
+    
+</form>
+ <!-- end form group-->
+<!-- message success register-->
+<div class="alert alert-success" *ngIf="successRegisted" role="alert">
+  you have registed with success
+</div>
+<!-- end message success register -->
+<!-- error message from the server-->
+<div class="alert alert-danger" *ngIf="serverInternalError" role="alert">
+  the server is not working right now, some problem are happening, try more later
+ </div>
+ <!-- end error message from the server-->

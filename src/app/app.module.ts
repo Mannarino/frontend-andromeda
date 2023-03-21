@@ -10,7 +10,8 @@ import { PortadaComponent } from './pages-auth/portada.component';
 import { LoginComponent } from './pages-auth/login/login.component';
 import { RegistroComponent } from './pages-auth/registro/registro.component';
 import { HomeComponent } from './pages-go-after-login/home/home.component';
-import { SharedModuleModule } from './shared-components/shared-module.module';
+import { SharedModule } from './shared-components/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { SharedModuleModule } from './shared-components/shared-module.module';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModuleModule
+    SharedModule,
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

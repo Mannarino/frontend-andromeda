@@ -13,4 +13,4 @@ import { LogoutComponent } from './logout/logout.component';
     LogoutComponent
   ]
 })
-export class SharedModuleModule { }
+export class SharedModule { }
