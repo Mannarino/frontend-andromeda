@@ -33,7 +33,8 @@ export class CrearComponent implements OnInit {
   get birthDay() { return this.form.get('birthDay'); }
   get photo() { return this.form.get('photo'); }
   get category() { return this.form.get('category'); }
-  
+  get viewAllowed() { return this.form.get('viewAllowed'); }
+
   createPerson(){
     console.log(this.form.value)
     // this.peopleService.createPerson(this.form.value)

@@ -20,8 +20,8 @@
     <!--end input name-->
     <!-- input photo-->
     <div class="mb-3 col-6">
-        <label for="exampleFormControlInput1" class="form-label">photo</label>
-         <input type="text" class="form-control" formControlName="photo" id="exampleFormControlInput1" >
+        <label for="exampleFormControlInput2" class="form-label">photo</label>
+         <input type="text" class="form-control" formControlName="photo" id="exampleFormControlInput2" >
          <div *ngIf="photo.invalid && (photo.dirty || photo.touched)" class="alert alert-danger">
             <div *ngIf="photo.errors.required">
             photo is required.
@@ -32,7 +32,11 @@
     <!-- input category-->
     <div class="mb-3 col-6">
      <label for="exampleFormControlInput3" class="form-label">category</label>
-     <input type="category" class="form-control" formControlName="category" id="exampleFormControlInput3" >
+     <select class="form-select" aria-label="Default select example" formControlName="category" id="exampleFormControlInput3" >
+      <option value="man">man</option>
+      <option value="woman">woman</option>
+      <option value="not-specified">not-specified</option>
+    </select>
      <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
         <div *ngIf="category.errors.required">
             category is required.
@@ -42,8 +46,8 @@
     <!-- end input category-->
     <!-- input birthDay  -->
     <div class="mb-3 col-6 ">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Choose a date</mat-label>
+      <mat-form-field class="example-full-width"  appearance="fill">
+        <mat-label>Choose a date of birthDay</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthDay">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker">
@@ -54,12 +58,17 @@
     </div>
     <!-- end input bitrhDay -->
     <!-- select viewAllowed-->
-    <div class="mb-3 col-6">
-      <select class="form-select" aria-label="Default select example"  formControlName="viewAllowed">
-        <option selected>Open this select menu</option>
+    <div class="mb-3 col-6" id="exampleFormControlInput5">
+      <label for="exampleFormControlInput4" class="form-label">view Allowed </label>
+      <select class="form-select" aria-label="Default select example" id="exampleFormControlInput5"  formControlName="viewAllowed">
         <option value="free">free</option>
         <option value="gold">gold</option>
       </select>
+      <div *ngIf="viewAllowed.invalid && (viewAllowed.dirty || viewAllowed.touched)" class="alert alert-danger">
+        <div *ngIf="viewAllowed.errors.required">
+            viewAllowed is required.
+        </div>
+     </div>
     </div>
     <!-- end select viewAllowed-->
     <!-- button to create person-->
