@@ -8,13 +8,13 @@ import { MenuSuperiorComponent } from './admin-home/components/menu-superior/men
 import { MenuLateralComponent } from './admin-home/components/menu-lateral/menu-lateral.component';
 import { AdministrarUsuariosComponent } from './admin-home/pages/administrar-usuarios/administrar-usuarios.component';
 
-import { SharedModuleModule } from '../shared-components/shared-module.module';
-import { CrearComponent } from './admin-home/pages/people/crear.component';
+import { SharedModule } from '../shared-components/shared.module';
+import { CrearComponent } from './admin-home/pages/administrar-people/crear.component';
 import { EditarUsuariosComponent } from './admin-home/pages/administrar-usuarios/editar-usuarios.component';
-
-
-
-
+import {MatDatepickerModule} from '@angular/material/datepicker'
+import {MatNativeDateModule} from '@angular/material/core'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -26,7 +26,15 @@ import { EditarUsuariosComponent } from './admin-home/pages/administrar-usuarios
     CommonModule,
     CmsRoutingModule,
     ReactiveFormsModule,
-    SharedModuleModule
+    SharedModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+   MatInputModule
+  ],
+  providers: [  
+    MatDatepickerModule,  
+    MatNativeDateModule
   ]
 })
 export class CmsModule { }

@@ -1,0 +1,72 @@
+
+<!--title-->
+<div  class="alert alert-primary col-6 " role="alert">
+    create person
+</div>
+<!-- end title-->
+
+<!--form group-->
+<form [formGroup]="form">
+    <!-- input name-->
+    <div class="mb-3 col-6">
+        <label for="exampleFormControlInput1" class="form-label">name</label>
+         <input type="text" class="form-control" formControlName="name" id="exampleFormControlInput1" >
+         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+    </div>
+    <!--end input name-->
+    <!-- input photo-->
+    <div class="mb-3 col-6">
+        <label for="exampleFormControlInput1" class="form-label">photo</label>
+         <input type="text" class="form-control" formControlName="photo" id="exampleFormControlInput1" >
+         <div *ngIf="photo.invalid && (photo.dirty || photo.touched)" class="alert alert-danger">
+            <div *ngIf="photo.errors.required">
+            photo is required.
+          </div>
+        </div>
+    </div>
+    <!--end input photo-->
+    <!-- input category-->
+    <div class="mb-3 col-6">
+     <label for="exampleFormControlInput3" class="form-label">category</label>
+     <input type="category" class="form-control" formControlName="category" id="exampleFormControlInput3" >
+     <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+        <div *ngIf="category.errors.required">
+            category is required.
+        </div>
+     </div>
+    </div>
+    <!-- end input category-->
+    <!-- input birthDay  -->
+    <div class="mb-3 col-6 ">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDay">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- end input bitrhDay -->
+    <!-- select viewAllowed-->
+    <div class="mb-3 col-6">
+      <select class="form-select" aria-label="Default select example"  formControlName="viewAllowed">
+        <option selected>Open this select menu</option>
+        <option value="free">free</option>
+        <option value="gold">gold</option>
+      </select>
+    </div>
+    <!-- end select viewAllowed-->
+    <!-- button to create person-->
+    <div class="login-botones">
+	    <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="createPerson()">registrate</button>
+    </div>
+     <!-- end button to create person-->
+    
+</form>
+ <!-- end form group-->
