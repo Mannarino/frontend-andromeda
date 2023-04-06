@@ -20,7 +20,9 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private handleTokens:HandleTokensService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    localStorage.clear();
+  }
   
   get email() { return this.form.get('email'); }
   get password() { return this.form.get('password'); }
@@ -51,10 +53,17 @@ export class LoginComponent implements OnInit {
       console.log('hubo un error')
     })  
   }
+  //este metodo es para lo usuarios que entrar como invitados, sin registrarse
+  entrarSinRegistro(){
+    this.loginService.saveProfile("free","free","free")
+    this.router.navigate(['/home'] )
+  }
+
 
   //method called when user press enter key------
   enterEvent() {
     this.login() 
   }
+  //En la vista en el input password esta la escucha de este evento (keydown.enter)="enterEvent()"
   //---------------------------------------------
 }

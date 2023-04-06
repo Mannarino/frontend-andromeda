@@ -13,13 +13,26 @@ export class LogoutComponent implements OnInit {
   constructor(private loginService:LoginService,
               private router: Router, 
               private handleTokensService:HandleTokensService) { }
-
+  
+  state= ""
   ngOnInit(): void {
     this.profile= this.loginService.getProfile()
+    this.state=this.profile.membresia
   }
   makeLogout(){
     this.loginService.removeProfile()
     this.router.navigate(['/login'])
     this.handleTokensService.removeToken()
+  }
+
+  getClass(): string {
+    switch (this.state) {
+      case 'free':
+        return 'text-bg-success';
+      case 'platino':
+        return 'text-bg-info';
+      case 'gold':
+        return 'text-bg-warning';
+    }
   }
 }

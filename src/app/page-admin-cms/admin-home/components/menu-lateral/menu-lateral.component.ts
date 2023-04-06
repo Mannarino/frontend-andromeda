@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-lateral.component.css']
 })
 export class MenuLateralComponent implements OnInit {
-
+  AdminMembresia =""
   constructor() { }
 
   ngOnInit(): void {
+    this.AdminMembresia = localStorage.getItem('ProfileMembresia')
   }
 
 }

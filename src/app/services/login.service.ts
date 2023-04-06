@@ -11,10 +11,10 @@ export class LoginService {
   loginUser(form){
     return this.http.post(`${environment.url_endpoint}/users/login`,form)
   }
-  saveProfile(email,name,rol){
+  saveProfile(email,name,membresia){
     localStorage.setItem('ProfileName',name)
     localStorage.setItem('ProfileEmail',email)
-    localStorage.setItem('ProfileMembresia',rol)
+    localStorage.setItem('ProfileMembresia',membresia)
   }
   getProfile(){
     const profile = {

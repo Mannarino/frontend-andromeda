@@ -1,16 +1,29 @@
 
 <ul class="nav justify-content-end mt-5">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Active</a>
+    <li class="nav-item" *ngIf="membresia !== ''">
+      <a class="nav-link"  [routerLink]="['/cms']">cms</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/cms']">cms</a>
+      <a class="nav-link disabled"> bienvenido <b>{{name}}</b> </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled">bienvenido  {{name}}</a>
-    </li>
+    <!-- app-loguot es un componente hijo que tiene la funcionalidad para hacer el logout de la app -->
     <app-logout></app-logout>
-  </ul>
+</ul>
+
+<!-- mensaje condicional para el caso de que el usuario entre como invitado -->
+<div *ngIf="membresia==='free'" class="alert alert-success" role="alert">
+    Estas visualizando este sitio como invitado
+</div>
+<!-- mensaje condicional ara el caso de que el usuario entre como miembro platino -->
+<div *ngIf="membresia==='platino'" class="alert alert-info" role="alert">
+  Estas visualizando este sitio como miembro platino, puedes ver informacion de los miembros free y platino
+  y puedes agregar datos en la categoria platino y free
+</div>
+<!-- mensaje condicional oara el caso de que el usuario entre como miembro gold -->
+<div *ngIf="membresia==='gold'" class="alert alert-warning" role="alert">
+  Estas visualizando este sitio como miembro gold, puedes ver informacion de los miembros free, platino y gold
+  y puedes agregar datos en la categoria platino, free y gold
+</div>
+
+
+<router-outlet></router-outlet>

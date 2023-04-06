@@ -1,4 +1,14 @@
 
 <app-menu-superior  class="one"></app-menu-superior>
-<app-menu-lateral></app-menu-lateral>
+<app-menu-lateral *ngIf="!(profile.membresia==='free')"></app-menu-lateral>
+<!-- puse entre parentesis (profile.membresia==='free') porque angular me decia que la comparacion de un string
+siempre iba a retornar false, al poner entre parentsis se resulve lo de los paretsis como verdadero o falso y eso es retornado,
+y luego a eso le aplica el operador de negacion -->
 <router-outlet></router-outlet>
+
+
+<div class="alert alert-success two" *ngIf="profile.membresia==='free'" role="alert">
+    estas viendo el sitio web como invitado gratuito, para poder agregar agregar personas de la categoria 
+    platino lo puedes hacer requistrandote en la pagina , eso lo puedes hacer aqui <a [routerLink]="['/regist']">here</a>
+    para ver las personas  de la categoria gold y para ingresar personas en la categoria gold nadie puede, solo el dueño de la pagina
+</div>

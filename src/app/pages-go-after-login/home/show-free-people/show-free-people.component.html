@@ -1,0 +1,23 @@
+
+<div class="card" *ngFor="let person of people" style="width: 100%;">
+    <img [src]="person.photo" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{person.name}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <span *ngIf="!person.passAway" class="badge text-bg-primary">age: {{person.age}}</span>
+        <span *ngIf="person.passAway" class="badge text-bg-danger">last age: {{person.age}}</span>
+        <p *ngIf="person.passAway"> This person pass away on {{person.yearPassAway | date}}</p>
+      </li>
+      <li class="list-group-item"><b>Birthday:</b>{{person.birthDay| date}}</li>
+      <li class="list-group-item">
+        category
+            <span  [ngClass]="getClass(person.viewAllowed)" class="badge ">{{person.viewAllowed}}</span>
+      </li>
+    </ul>
+</div>
+<app-pagination class="paginator" [numberOfelementsInApirest]=10 
+(paginar)="getDataToPaginate($event)">
+
+</app-pagination> 

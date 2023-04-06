@@ -1,0 +1,8 @@
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination"> 
+      <li class="page-item" *ngFor="let item of toPaginar" >
+        <a [ngClass]=" item.select===true ? 'active' : ''" class="page-link" (click)="paginate(item); cambiarSelect(item.pagina);">{{item.pagina}}</a>
+      </li>   
+    </ul>
+  </nav>

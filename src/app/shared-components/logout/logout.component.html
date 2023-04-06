@@ -1,14 +1,33 @@
 
 <!-- Example single danger button -->
 <div class="btn-group">
-    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn  dropdown-toggle" [ngClass]="getClass()" data-bs-toggle="dropdown" aria-expanded="false">
       Action
     </button>
     <ul class="dropdown-menu">
       <li><a class="dropdown-item" href="#">{{profile?.name}}</a></li>
       <li><a class="dropdown-item" href="#">{{profile?.email}}</a></li>
-      <li><a class="dropdown-item" href="#">membresia: <span class="badge text-bg-info">{{profile?.membresia}} </span></a></li>
+      <li ><a class="dropdown-item" href="#">membresia: 
+        <span class="badge " [ngClass]="getClass()">{{profile?.membresia}} </span></a>
+      </li>
       <li><hr class="dropdown-divider"></li>
       <li><a class="dropdown-item" href="#" (click)="makeLogout()">Logout</a></li>
     </ul>
   </div>
+
+
+  <!-- estos comentarios aqui debajo, con cierto codigo, no lo utilizo y no significan nada en la aplicacion
+  solo los tengo como backupde ciertas operaciones que probe utilizar -->
+
+  <!-- operador ternario para el caso de dos condicionesm no la utilizo, solo la tengo de backup
+  [ngClass]="profile.membresia==='gold' ? 'btn-warning':'btn-info'" -->
+
+
+  <!-- logica condicional de usuarios, no la utilizo, solo la tengo de backup
+  <li *ngIf="profile.membresia; else usuarioInvitado"><a class="dropdown-item" href="#">membresia: 
+    <span class="badge " [ngClass]="getClass()">{{profile?.membresia}} </span></a>
+  </li>
+  <ng-template #usuarioInvitado>
+   contenido a mostrar si el usuario es invitado gratis 
+    <li ><a class="dropdown-item" href="#">membresia: <span [ngClass]="getClass()" class="badge ">Free User </span></a></li>
+  </ng-template> -->

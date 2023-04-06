@@ -5,6 +5,14 @@
 </div>
 <!-- end title-->
 
+<!-- mensajes de saludo condicionales segun seas admin pltino o admin gold -->
+<div *ngIf="AdminMembresia=='gold'" class="alert alert-warning" role="alert">
+  eres admin gold, puedes crear personas para la lista free, platino y gold
+</div>
+<div *ngIf="AdminMembresia=='platino'" class="alert alert-info" role="alert">
+  eres admin platino, puedes crear gente para las listas free y platino
+</div>
+
 <!--form group-->
 <form [formGroup]="form">
     <!-- input name-->
@@ -44,25 +52,47 @@
      </div>
     </div>
     <!-- end input category-->
-    <!-- input birthDay  -->
+    <!-- input birthDay datepicker -->
     <div class="mb-3 col-6 ">
-      <mat-form-field class="example-full-width"  appearance="fill">
+      <mat-form-field appearance="fill">
         <mat-label>Choose a date of birthDay</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthDay">
+        <input matInput [matDatepicker]="pickerOne" formControlName="birthDay">
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerOne"></mat-datepicker-toggle>
+        <mat-datepicker #pickerOne></mat-datepicker>
       </mat-form-field>
     </div>
     <!-- end input bitrhDay -->
+    
+    <!-- checked ask if pass away-->
+    <div class="mb-3 col-6 ">
+      <div class="form-check">
+        <input class="form-check-input"  type="checkbox" value="" formControlName="passAway" id="flexCheckIndeterminate">
+        <label class="form-check-label" for="flexCheckIndeterminate">
+          pass away?
+        </label>
+      </div>
+    </div>
+    <!-- finishd checked-->
+
+    <!-- input passAway datepicker -->
+    <div class="mb-3 col-6 ">
+      <mat-form-field appearance="fill" *ngIf="showDatePickerOfPassAway">
+        <mat-label>Choose a date of pass away</mat-label>
+        <input matInput [matDatepicker]="pickerTwo" formControlName="yearPassAway">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerTwo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTwo></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- end input passAway -->
     <!-- select viewAllowed-->
     <div class="mb-3 col-6" id="exampleFormControlInput5">
       <label for="exampleFormControlInput4" class="form-label">view Allowed </label>
       <select class="form-select" aria-label="Default select example" id="exampleFormControlInput5"  formControlName="viewAllowed">
         <option value="free">free</option>
-        <option value="gold">gold</option>
+        <option *ngIf="AdminMembresia=='gold'" value="gold">gold</option>
+        <option value="platino">platino</option>
       </select>
       <div *ngIf="viewAllowed.invalid && (viewAllowed.dirty || viewAllowed.touched)" class="alert alert-danger">
         <div *ngIf="viewAllowed.errors.required">
@@ -71,14 +101,19 @@
      </div>
     </div>
     <!-- end select viewAllowed-->
-    <!-- button to create person-->
+    <!-- button to create person / admin platino-->
     <div class="login-botones">
-	    <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="createPerson()">registrate</button>
+	    <button type="button" *ngIf="AdminMembresia==='platino'"  [disabled]="!form.valid" class="btn btn-primary" (click)="createPerson()">registrate</button>
     </div>
-     <!-- end button to create person-->
-    
+     <!-- end button to create person /admin platino-->
+    <!-- button to create person / admin gold-->
+    <div class="login-botones">
+	    <button type="button" *ngIf="AdminMembresia==='gold'"  [disabled]="!form.valid" class="btn  btn-warning" (click)="createPerson()">registrate</button>
+    </div>
+     <!-- end button to create person / admin gold-->
 </form>
  <!-- end form group-->
+
 <!-- message success register-->
 <div class="alert alert-success" *ngIf="successRegisted" role="alert">
   you have registed with success
@@ -89,3 +124,4 @@
   the server is not working right now, some problem are happening, try more later
  </div>
  <!-- end error message from the server-->
+

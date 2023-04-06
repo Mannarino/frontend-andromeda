@@ -12,6 +12,9 @@ import { RegistroComponent } from './pages-auth/registro/registro.component';
 import { HomeComponent } from './pages-go-after-login/home/home.component';
 import { SharedModule } from './shared-components/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShowFreePeopleComponent } from './pages-go-after-login/home/show-free-people/show-free-people.component';
+import { PaginationComponent } from './pages-go-after-login/home/show-free-people/pagination/pagination.component';
+
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PortadaComponent,
     LoginComponent,
     RegistroComponent,
-    HomeComponent
+    HomeComponent,
+    ShowFreePeopleComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

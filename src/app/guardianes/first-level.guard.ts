@@ -12,6 +12,9 @@ export class FirstLevelGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      if(localStorage.getItem('ProfileMembresia')){
+        return true
+      }
     if(this.handletokenService.getToken()){
       return true
     }else{

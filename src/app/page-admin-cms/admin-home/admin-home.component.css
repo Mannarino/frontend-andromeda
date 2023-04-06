@@ -1,13 +1,21 @@
 :host{
     display: grid;
-    grid-template-rows: 80px  80%;
+    /* grid-template-rows: 80px  80%;*/
     grid-template-columns: 19% 1% 80%;
-    height: 100%;
+    height: auto;
     width: 90%;
     margin: auto;
+    padding: 40px;
     border: 1px black solid;
+    position: absolute;
+    top: 10px;
 }
 .one {
     grid-column: 1 / 4;
     grid-row: 1;
+  }
+
+  .two{
+    grid-column: 1 / 4;
+    grid-row: 2;
   }

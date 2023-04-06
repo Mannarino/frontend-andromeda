@@ -7,6 +7,7 @@ import { CrearComponent } from './admin-home/pages/administrar-people/crear.comp
 
 
 
+
 const routes: Routes = [
   {path:'', component :AdminHomeComponent,
   children:[
