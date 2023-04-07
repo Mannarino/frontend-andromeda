@@ -9,6 +9,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   loginUser(form){
+    console.log(environment.url_endpoint)
     return this.http.post(`${environment.url_endpoint}/users/login`,form)
   }
   saveProfile(email,name,membresia){

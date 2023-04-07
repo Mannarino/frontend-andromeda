@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   url_endpoint : "http://localhost:3000"
 };
-
+https://api-rest-full-andromeda.onrender.com/
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
