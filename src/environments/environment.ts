@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url_endpoint : "http://localhost:3000"
+  url_endpoint : "https://api-rest-full-andromeda.onrender.com"
+  //url_endpoint : "http://localhost:3000"
 };
 
 /*
