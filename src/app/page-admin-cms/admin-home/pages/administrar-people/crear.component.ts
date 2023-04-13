@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { PeopleService } from 'src/app/services/people.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { PeopleService } from 'src/app/services/people.service';
   styleUrls: ['./crear.component.css']
 })
 export class CrearComponent implements OnInit {
+  token
   // variables to control error messages
   successRegisted = false
   serverInternalError=false
@@ -33,14 +35,16 @@ export class CrearComponent implements OnInit {
   // dateAdapter and dateAdapter.setLocale are 
   // to Data picker element from angular material
   constructor(private dateAdapter: DateAdapter<Date> ,
-              private peopleService:PeopleService)
+              private peopleService:PeopleService,
+              private handleToken:HandleTokensService)
                { 
                this.dateAdapter.setLocale('es')
   }
  
   ngOnInit(): void {
     this.AdminMembresia = localStorage.getItem('ProfileMembresia')
-
+    console.log(this.AdminMembresia)
+    this.token= this.handleToken.getToken()
     // I listen to the changes of the checked passAway 
     // to enable the corresponding date picker
     this.form.get('passAway').valueChanges.subscribe(value=>{
@@ -71,19 +75,37 @@ export class CrearComponent implements OnInit {
       alert('debe ingresar uan fecha')
       return false
     }else{
-      this.peopleService.createPerson(this.form.value)
-      .subscribe( 
-          (data)=>{          
-                    this.form.reset()
-                    console.log( data)
-                    this.successRegisted = true
-                    setTimeout(()=> this.successRegisted= false,3000)
-                  }
-                  ,error=>{
-                    this.serverInternalError =true
-                    setTimeout(()=>this.serverInternalError = false ,3000)
-                    console.log('hubo un error')
-                  })
-      }            
+      if (this.AdminMembresia==="gold"){
+        console.log('se entro al golden admin')
+        this.peopleService.createPersonGoldenAdmin(this.form.value,this.token)
+        .subscribe( 
+            (data)=>{          
+                      this.form.reset()
+                      console.log( data)
+                      this.successRegisted = true
+                      setTimeout(()=> this.successRegisted= false,3000)
+                    }
+                    ,error=>{
+                      this.serverInternalError =true
+                      setTimeout(()=>this.serverInternalError = false ,3000)
+                      console.log('hubo un error' + error.message)
+                    })
+      }else{
+           this.peopleService.createPerson(this.form.value)
+            .subscribe( 
+                (data)=>{          
+                          this.form.reset()
+                          console.log( data)
+                          this.successRegisted = true
+                          setTimeout(()=> this.successRegisted= false,3000)
+                        }
+                        ,error=>{
+                          this.serverInternalError =true
+                          setTimeout(()=>this.serverInternalError = false ,3000)
+                          console.log('hubo un error')
+                        })
+            }
+   
+    }            
   }
 }

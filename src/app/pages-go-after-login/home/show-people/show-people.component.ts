@@ -2,26 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PeopleService } from 'src/app/services/people.service';
+import { NumeroPeople } from 'src/app/interfaces/numero-people';
 
 @Component({
-  selector: 'app-show-free-people',
-  templateUrl: './show-free-people.component.html',
-  styleUrls: ['./show-free-people.component.css']
+  selector: 'app-show-people',
+  templateUrl: './show-people.component.html',
+  styleUrls: ['./show-people.component.css']
 })
-export class ShowFreePeopleComponent implements OnInit {
+export class ShowPeopleComponent implements OnInit {
   people
   profile
   token
+  numeroDePeopleEnLaApiRest 
   constructor(private peopleService:PeopleService,
                private loginService:LoginService,
                private handleToken:HandleTokensService
     ) { }
-
+    
   ngOnInit(): void {
     this.profile = this.loginService.getProfile()
     this.token= this.handleToken.getToken()
     this.getPeople(0,8,this.profile.membresia,this.token)
-    
+    this.obtenerCantidadElementosEnLaApi()
     console.log(this.profile.membresia)
   }
     getPeople(skip,limit,membresia,token){
@@ -62,4 +64,21 @@ export class ShowFreePeopleComponent implements OnInit {
           return 'text-bg-warning';
       }
     } 
+    obtenerCantidadElementosEnLaApi(){
+      if(this.profile.membresia==='free'||this.profile.membresia==='platino'){
+        this.peopleService.getCountFreeAndPlatinoPeople()
+        .subscribe((data:NumeroPeople) =>{
+          console.log(data.numero)
+          this.numeroDePeopleEnLaApiRest= data.numero
+          console.log(this.numeroDePeopleEnLaApiRest)
+        })
+      }
+      if(this.profile.membresia==='gold'){
+        this.peopleService.getCountGoldPeople()
+        .subscribe((data:NumeroPeople) =>{
+          this.numeroDePeopleEnLaApiRest= data.numero
+          console.log(this.numeroDePeopleEnLaApiRest)
+        })
+      }
+    }
 }

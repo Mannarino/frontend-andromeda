@@ -35,7 +35,7 @@
   <!--end button of login-->
 </form>
 <!--end form grup-->
-
+<img *ngIf="imgCargando" src="./assets/cargando.gif" />
 <!-- messages of validation-->
 <div class="alert alert-danger" *ngIf="LoggedBadly" role="alert">
  incorrect log in, your password or email is wrong,
