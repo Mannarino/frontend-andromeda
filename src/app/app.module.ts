@@ -16,6 +16,11 @@ import { PortadaComponent } from './pages-auth/portada.component';
 import { LoginComponent } from './pages-auth/login/login.component';
 import { RegistroComponent } from './pages-auth/registro/registro.component';
 import { HomeComponent } from './pages-go-after-login/home/home.component';
+import { EditarComponent } from './pages-go-after-login/home/show-people/editar/editar.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -26,7 +31,8 @@ import { HomeComponent } from './pages-go-after-login/home/home.component';
     RegistroComponent,
     HomeComponent,
     ShowPeopleComponent,
-    PaginationComponent
+    PaginationComponent,
+    EditarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,10 @@ import { HomeComponent } from './pages-go-after-login/home/home.component';
     HttpClientModule,
     SharedModule,
     BrowserAnimationsModule,
-    
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+   MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

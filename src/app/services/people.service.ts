@@ -15,6 +15,18 @@ export class PeopleService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${environment.url_endpoint}/people/gold`,person,{ headers })
   }
+  updatePersonById(id,person,token=""){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${environment.url_endpoint}/people/gold/${id}`,person,{ headers })
+  }
+  deletePersonById(id,token=""){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${environment.url_endpoint}/people/gold/${id}`,{ headers })
+  }
+  getAPersonById(id,token=""){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${environment.url_endpoint}/people/gold/${id}`,{ headers })
+  }
   getPeople(skip=0,limit=0,membresia="",token=""){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     if(membresia===""||membresia==='platino'||membresia==='free'){

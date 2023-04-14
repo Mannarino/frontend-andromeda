@@ -11,6 +11,7 @@ import { ShowPeopleComponent } from './pages-go-after-login/home/show-people/sho
 //guardianes
 import { FirstLevelGuard } from './guardianes/first-level.guard';
 import { ExitGuard } from './guardianes/exit.guard';
+import { EditarComponent } from './pages-go-after-login/home/show-people/editar/editar.component';
 
 const routes: Routes = [
 	{path:'',
@@ -24,7 +25,8 @@ const routes: Routes = [
 	canActivate: [FirstLevelGuard],
 	canDeactivate: [ ExitGuard ],
 	children:[
-	    { path:'', component: ShowPeopleComponent}
+	    { path:'', component: ShowPeopleComponent},
+		{ path:'editar/:id', component: EditarComponent}
 	]},
 	{path:'cms',
 		loadChildren: () => import('./page-admin-cms/cms.module').then(m => m.CmsModule)      

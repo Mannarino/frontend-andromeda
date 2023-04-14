@@ -6,7 +6,7 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        <span *ngIf="!person.passAway" class="badge text-bg-primary">age: {{person.age}}</span>
+        <span *ngIf="!person.passAway" class="badge text-bg-secondary">age: {{person.age}}</span>
         <span *ngIf="person.passAway" class="badge text-bg-danger">last age: {{person.age}}</span>
         <p *ngIf="person.passAway"> This person pass away on {{person.yearPassAway | date}}</p>
       </li>
@@ -15,6 +15,12 @@
         category
             <span  [ngClass]="getClass(person.viewAllowed)" class="badge ">{{person.viewAllowed}}</span>
       </li>
+      <li class="list-group-item">
+        <button type="button" routerLink="/home/editar/{{person._id}}" class="btn btn-primary">editar</button>
+      </li> 
+      <li class="list-group-item">
+        <button type="button" (click)="eliminarPersona(person._id)" class="btn btn-danger">eliminar</button>
+      </li>  
     </ul>
 </div>
 <app-pagination class="paginator" [numberOfelementsInApirest]=numeroDePeopleEnLaApiRest

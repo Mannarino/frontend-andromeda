@@ -81,4 +81,24 @@ export class ShowPeopleComponent implements OnInit {
         })
       }
     }
+
+    eliminarPersona(id){
+      var resultado = window.confirm('vas a eliminar esta persona,Estas seguro?');
+      if (resultado === true) {
+        let index = this.people.findIndex(item => item._id === id); 
+           
+        this.peopleService.deletePersonById(id,this.token)
+        .subscribe( 
+            (data)=>{          
+               this.people.splice(index, 1);
+                      
+                    }
+                    ,error=>{
+                      console.log('hubo un error' + error.message)
+                    })
+    
+      } else { 
+         //no hacer nada
+      }
+    }
 }
