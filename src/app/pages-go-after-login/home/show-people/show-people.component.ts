@@ -3,7 +3,7 @@ import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PeopleService } from 'src/app/services/people.service';
 import { NumeroPeople } from 'src/app/interfaces/numero-people';
-
+declare let alertify:any
 @Component({
   selector: 'app-show-people',
   templateUrl: './show-people.component.html',
@@ -16,7 +16,7 @@ export class ShowPeopleComponent implements OnInit {
   numeroDePeopleEnLaApiRest 
   constructor(private peopleService:PeopleService,
                private loginService:LoginService,
-               private handleToken:HandleTokensService
+               private handleToken:HandleTokensService,
     ) { }
     
   ngOnInit(): void {
@@ -83,22 +83,30 @@ export class ShowPeopleComponent implements OnInit {
     }
 
     eliminarPersona(id){
-      var resultado = window.confirm('vas a eliminar esta persona,Estas seguro?');
-      if (resultado === true) {
+      /*
+      * @title {String or DOMElement} The dialog title.
+      * @message {String or DOMElement} The dialog contents.
+      * @onok {Function} Invoked when the user clicks OK button.
+      * @oncancel {Function} Invoked when the user clicks Cancel button or closes the dialog.
+      *
+      * alertify.confirm(title, message, onok, oncancel);
+      *
+      */
+      alertify.confirm('eliminar persona', 'estas seguro que quieres eliminar esta persona?', ()=>{ 
+        alertify.success('se elimino') 
+        console.log(this.people)
         let index = this.people.findIndex(item => item._id === id); 
-           
+      
         this.peopleService.deletePersonById(id,this.token)
         .subscribe( 
             (data)=>{          
-               this.people.splice(index, 1);
-                      
+               this.people.splice(index, 1);              
                     }
                     ,error=>{
                       console.log('hubo un error' + error.message)
                     })
-    
-      } else { 
-         //no hacer nada
       }
+      , function(){ alertify.error('se cancelo la operacion de eliminacion')})
+      .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}}); 
     }
 }

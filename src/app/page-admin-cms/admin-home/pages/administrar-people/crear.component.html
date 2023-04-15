@@ -101,16 +101,20 @@
      </div>
     </div>
     <!-- end select viewAllowed-->
-    <!-- button to create person / admin platino-->
-    <div class="login-botones">
-	    <button type="button" *ngIf="AdminMembresia==='platino'"  [disabled]="!form.valid" class="btn btn-primary" (click)="createPerson()">registrate</button>
+   
+    <div>
+       <!-- button to create person / admin platino-->
+         <button type="button" *ngIf="AdminMembresia==='platino'"  [disabled]="!form.valid" class="btn btn-primary d-inline-block" (click)="createPerson()">registrate</button>
+       <!-- end button to create person /admin platino-->   
+          
+       <!-- button to create person / admin gold-->  
+         <button type="button" *ngIf="AdminMembresia==='gold'"  [disabled]="!form.valid" class="btn  btn-warning d-inline-block" (click)="createPerson()">registrate</button> 
+       <!-- end button to create person / admin gold-->     
+          
+       <button type="button" class="btn  btn-primary d-inline-block" style="margin-left: 10px;" routerLink="/home">go home</button>   
+
     </div>
-     <!-- end button to create person /admin platino-->
-    <!-- button to create person / admin gold-->
-    <div class="login-botones">
-	    <button type="button" *ngIf="AdminMembresia==='gold'"  [disabled]="!form.valid" class="btn  btn-warning" (click)="createPerson()">registrate</button>
-    </div>
-     <!-- end button to create person / admin gold-->
+    
 </form>
  <!-- end form group-->
 

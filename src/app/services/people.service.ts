@@ -25,7 +25,7 @@ export class PeopleService {
   }
   getAPersonById(id,token=""){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(`${environment.url_endpoint}/people/gold/${id}`,{ headers })
+    return this.http.get(`${environment.url_endpoint}/people/gold/${id}`,{ headers })
   }
   getPeople(skip=0,limit=0,membresia="",token=""){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

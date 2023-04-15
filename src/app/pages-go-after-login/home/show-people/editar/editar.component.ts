@@ -5,12 +5,14 @@ import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { PeopleService } from 'src/app/services/people.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Person } from 'src/app/interfaces/person';
+
 @Component({
   selector: 'editar',
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css']
 })
 export class EditarComponent implements OnInit {
+  
   parametroDeRuta //recibe el id de la persona a editar
   token
   // variables to control error messages
@@ -59,6 +61,7 @@ export class EditarComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.parametroDeRuta = params['id'];
       console.log(this.parametroDeRuta)
+      console.log(this.token)
       this.peopleService.getAPersonById(this.parametroDeRuta,this.token)
          .subscribe((value:Person )=> {console.log(value)
              this.form.get("name").setValue(value.name)
@@ -68,7 +71,11 @@ export class EditarComponent implements OnInit {
             this.form.get("photo").setValue(value.photo)
             this.form.get("viewAllowed").setValue(value.viewAllowed)
             this.form.get("category").setValue(value.category)
-           })
+           },error=>{
+            this.serverInternalError =true
+            setTimeout(()=>this.serverInternalError = false ,3000)
+            console.log('hubo un error' + error.message)
+          })
       });
    }
 
@@ -95,7 +102,7 @@ export class EditarComponent implements OnInit {
       alert('debe ingresar uan fecha')
       return false
     }else{
-      
+
         this.peopleService.updatePersonById(this.parametroDeRuta,this.form.value,this.token)
         .subscribe( 
             (data)=>{          
