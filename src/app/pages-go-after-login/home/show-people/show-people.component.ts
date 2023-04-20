@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PeopleService } from 'src/app/services/people.service';
 import { NumeroPeople } from 'src/app/interfaces/numero-people';
+import { ComunicacionEntreHermanosService } from 'src/app/services/comunicacion-entre-hermanos.service';
+
+
+
 declare let alertify:any
+
+
 @Component({
   selector: 'app-show-people',
   templateUrl: './show-people.component.html',
@@ -14,35 +20,81 @@ export class ShowPeopleComponent implements OnInit {
   profile
   token
   numeroDePeopleEnLaApiRest 
+  category
+  viewAllowed
+  buscador
   constructor(private peopleService:PeopleService,
                private loginService:LoginService,
                private handleToken:HandleTokensService,
+               private comunicacionEntreHermanos:ComunicacionEntreHermanosService
     ) { }
     
   ngOnInit(): void {
     this.profile = this.loginService.getProfile()
     this.token= this.handleToken.getToken()
-    this.getPeople(0,8,this.profile.membresia,this.token)
+    this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
     this.obtenerCantidadElementosEnLaApi()
     console.log(this.profile.membresia)
+
+    this.comunicacionEntreHermanos.categoria$.subscribe( category =>{
+      this.category =category
+      this.peopleService.getCountByCategoryFreeAndPlatinoPeople(this.category)
+      .subscribe((data:NumeroPeople) =>{
+        this.numeroDePeopleEnLaApiRest= data.numero
+      })
+    
+      this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
+    })
+
+    this.comunicacionEntreHermanos.viewAllowed$.subscribe( viewAllowed =>{
+      this.viewAllowed = viewAllowed
+      this.peopleService.getCountByViewAllowedFreeAndPlatinoPeople(viewAllowed)
+      .subscribe((data:NumeroPeople) =>{
+        this.numeroDePeopleEnLaApiRest= data.numero
+      })
+    
+      this.getPeople(0,8,this.profile.membresia,this.token,this.category,viewAllowed,this.buscador)
+    })
+
+    this.comunicacionEntreHermanos.buscador$.subscribe( buscador =>{
+      this.buscador = buscador
+      this.category=''
+      this.viewAllowed=''
+      this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,buscador)
+    })
   }
-    getPeople(skip,limit,membresia,token){
-      this.peopleService.getPeople(skip,limit,membresia,token)
+  // array = []
+  // buscar(data){   este codigo es si haria la busqueda desde javascript en el navegador desde
+                  // una propiedad que contenga el arra con todos los daots
+  //   console.log(data)
+  //   console.log(this.people)
+  //   if (this.people !== undefined) {
+  //   this.array = this.people.filter(persona => persona.category == 'man');
+  //   console.log(this.array)
+  //   this.people = this.array
+  //   }
+  // }
+
+
+    getPeople(skip,limit,membresia,token,category,viewAllowed="",buscador){
+      this.peopleService.getPeople(skip,limit,membresia,token,category,viewAllowed,buscador)
       .subscribe(
         (data)=>{
+          console.log(data)
           this.people = data
           console.log(this.people)
+          
         },
         (error)=>{
           console.log(error)
         }
       )
     }
-
+    
     //este metodo recibe el outpu del componente hijo que es el paginator
     //con esa data recibe los valores de skip y limit para hacer un request indicando el limite y el salto
     getDataToPaginate(respuesta) {
-      this.peopleService.getPeople(respuesta.skip,respuesta.limit,this.profile.membresia,this.token)
+      this.peopleService.getPeople(respuesta.skip,respuesta.limit,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
       .subscribe(
         (data)=>{
           this.people = data
@@ -93,20 +145,30 @@ export class ShowPeopleComponent implements OnInit {
       *
       */
       alertify.confirm('eliminar persona', 'estas seguro que quieres eliminar esta persona?', ()=>{ 
-        alertify.success('se elimino') 
         console.log(this.people)
-        let index = this.people.findIndex(item => item._id === id); 
-      
+        let index = this.people.findIndex(item => item._id === id);   
         this.peopleService.deletePersonById(id,this.token)
         .subscribe( 
             (data)=>{          
-               this.people.splice(index, 1);              
+               this.people.splice(index, 1);  
+               alertify.success('se elimino')           
                     }
-                    ,error=>{
+            ,error=>{
                       console.log('hubo un error' + error.message)
+                      alertify.error('hubo un error en operacion de eliminacion')
                     })
       }
-      , function(){ alertify.error('se cancelo la operacion de eliminacion')})
+      , function(){})
       .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}}); 
     }
+
+    comprobarMembresia(){
+      if(this.profile.membresia==='gold'){
+        return false
+      }
+      else{
+        return true
+      }
+    }
+ 
 }

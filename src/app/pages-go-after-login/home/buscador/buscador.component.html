@@ -1,0 +1,39 @@
+
+<!--form group-->
+<form [formGroup]="form">
+  <!-- input buscador-->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Recipient's username" #buscadorInput formControlName="buscador"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <span  class="input-group-text" id="basic-addon2">buscador</span>
+  </div>
+  <!--end input buscador-->
+  <!-- radio button-->
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" formControlName="viewAllowed" type="radio" id="inlineCheckbox1" value="free">
+    <label class="form-check-label" for="inlineCheckbox1">free</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" formControlName="viewAllowed" type="radio" id="inlineCheckbox2" value="platino">
+    <label class="form-check-label" for="inlineCheckbox2">platino</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" formControlName="categorias" type="radio" id="inlineCheckbox2" value="man">
+    <label class="form-check-label" for="inlineCheckbox2">man</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" formControlName="categorias" type="radio" id="inlineCheckbox2" value="woman">
+    <label class="form-check-label" for="inlineCheckbox2">woman</label>
+  </div>
+
+   <!-- end radio button-->
+ 
+</form>
+<!-- end form group-->
+
+
+
+
+
+
+
+

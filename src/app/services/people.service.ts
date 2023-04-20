@@ -27,18 +27,43 @@ export class PeopleService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${environment.url_endpoint}/people/gold/${id}`,{ headers })
   }
-  getPeople(skip=0,limit=0,membresia="",token=""){
+  getPeople(skip=0,limit=0,membresia="",token="",category,viewAllowed,buscador){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     if(membresia===""||membresia==='platino'||membresia==='free'){
+      if(category){
+        return this.http.get(`${environment.url_endpoint}/people/free-and-platino?skip=${skip}&limit=${limit}&category=${category}`)
+      }
+      if(viewAllowed){
+        return this.http.get(`${environment.url_endpoint}/people/free-and-platino?skip=${skip}&limit=${limit}&viewAllowed=${viewAllowed}`)
+      }
+      if(buscador){
+        return this.http.get(`${environment.url_endpoint}/people/free-and-platino?skip=${skip}&limit=${limit}&buscador=${buscador}`)
+      }
       return this.http.get(`${environment.url_endpoint}/people/free-and-platino?skip=${skip}&limit=${limit}`)
+      
+      
     }
     if(membresia==='gold'){
-       return this.http.get(`${environment.url_endpoint}/people/gold?skip=${skip}&limit=${limit}`,{ headers })
+      if(category){
+        return this.http.get(`${environment.url_endpoint}/people/gold?skip=${skip}&limit=${limit}&category=${category}`,{ headers })
+      }
+      if(viewAllowed){
+        return this.http.get(`${environment.url_endpoint}/people/gold?skip=${skip}&limit=${limit}&viewAllowed=${viewAllowed}`,{ headers })
+      }
+      if(buscador){
+        return this.http.get(`${environment.url_endpoint}/people/gold?skip=${skip}&limit=${limit}&buscador=${buscador}`,{ headers })
+      }
+      return this.http.get(`${environment.url_endpoint}/people/gold?skip=${skip}&limit=${limit}`,{ headers })
     }
   }
-  getCountFreeAndPlatinoPeople(token=""){
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  getCountFreeAndPlatinoPeople(){
     return this.http.get(`${environment.url_endpoint}/people/free-and-platino?count=true`)
+  }
+  getCountByCategoryFreeAndPlatinoPeople(category){
+    return this.http.get(`${environment.url_endpoint}/people/free-and-platino?count=true&category=${category}`)
+  }
+  getCountByViewAllowedFreeAndPlatinoPeople(viewAllowed){
+    return this.http.get(`${environment.url_endpoint}/people/free-and-platino?count=true&viewAllowed=${viewAllowed}`)
   }
   getCountGoldPeople(token=""){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

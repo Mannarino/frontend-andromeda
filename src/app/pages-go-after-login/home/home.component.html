@@ -17,13 +17,16 @@
 <!-- mensaje condicional ara el caso de que el usuario entre como miembro platino -->
 <div *ngIf="membresia==='platino'" class="alert alert-info" role="alert">
   Estas visualizando este sitio como miembro platino, puedes ver informacion de los miembros free y platino
-  y puedes agregar datos en la categoria platino y free
+  y puedes agregar datos en la categoria platino y free.
+  Las funciones de eliminacion y edicion solo estan disponibles para miembros gold
 </div>
 <!-- mensaje condicional oara el caso de que el usuario entre como miembro gold -->
 <div *ngIf="membresia==='gold'" class="alert alert-warning" role="alert">
   Estas visualizando este sitio como miembro gold, puedes ver informacion de los miembros free, platino y gold
   y puedes agregar datos en la categoria platino, free y gold
 </div>
+
+<app-buscador></app-buscador>
 
 
 <router-outlet></router-outlet>

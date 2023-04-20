@@ -1,4 +1,5 @@
 
+
 <div class="card" *ngFor="let person of people" style="width: 100%;">
     <img [src]="person.photo" class="card-img-top" alt="...">
     <div class="card-body">
@@ -16,13 +17,13 @@
             <span  [ngClass]="getClass(person.viewAllowed)" class="badge ">{{person.viewAllowed}}</span>
       </li>
       <li class="list-group-item">
-        <button type="button" routerLink="/home/editar/{{person._id}}" class="btn btn-primary">editar</button>
+        <button type="button" [disabled]="comprobarMembresia()" routerLink="/home/editar/{{person._id}}" class="btn btn-primary">editar</button>
       </li> 
       <li class="list-group-item">
-        <button type="button" (click)="eliminarPersona(person._id)" class="btn btn-danger">eliminar</button>
+        <button type="button" [disabled]="comprobarMembresia()" (click)="eliminarPersona(person._id)" class="btn btn-danger">eliminar</button>
       </li>  
     </ul>
-</div>
+</div> 
 <app-pagination class="paginator" [numberOfelementsInApirest]=numeroDePeopleEnLaApiRest
 (paginar)="getDataToPaginate($event)">
 

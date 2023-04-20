@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   InvitedUser=false
   membresia=""
   profile
+  
   constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -25,5 +26,5 @@ export class HomeComponent implements OnInit {
     //   localStorage.removeItem('enterLikeFreeUser');
     // });
   }
-
+ 
 }
