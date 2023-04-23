@@ -9,7 +9,7 @@ import { ComunicacionEntreHermanosService } from 'src/app/services/comunicacion-
   styleUrls: ['./buscador.component.css']
 })
 export class BuscadorComponent implements OnInit {
-  userChangedValue: boolean = true;
+  
 
 
   form = new FormGroup({
@@ -21,22 +21,12 @@ export class BuscadorComponent implements OnInit {
 
   ngOnInit(): void {
   this.form.get('categorias').valueChanges.subscribe((value) => {
-    if (this.userChangedValue) {
-      this.userChangedValue = false;
-      this.form.get('viewAllowed').setValue('');
-    } else {
-      this.userChangedValue = true;
-    }
+    
       this.comunicacionEntreHermanos.enviarCategoria(value )  
       
     });
     this.form.get('viewAllowed').valueChanges.subscribe((value) => {
-      if (this.userChangedValue) {
-        this.userChangedValue = false;
-        this.form.get('categorias').setValue('');
-      } else {
-        this.userChangedValue = true;
-      }
+      
       this.comunicacionEntreHermanos.enviarViewAllowed(value )   
       
     });

@@ -43,7 +43,7 @@ export class ShowPeopleComponent implements OnInit {
         this.numeroDePeopleEnLaApiRest= data.numero
       })
     
-      this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
+      this.getPeople(0,8,this.profile.membresia,this.token,this.category,"","")
     })
 
     this.comunicacionEntreHermanos.viewAllowed$.subscribe( viewAllowed =>{
@@ -53,14 +53,14 @@ export class ShowPeopleComponent implements OnInit {
         this.numeroDePeopleEnLaApiRest= data.numero
       })
     
-      this.getPeople(0,8,this.profile.membresia,this.token,this.category,viewAllowed,this.buscador)
+      this.getPeople(0,8,this.profile.membresia,this.token,"",viewAllowed,"")
     })
 
     this.comunicacionEntreHermanos.buscador$.subscribe( buscador =>{
       this.buscador = buscador
       this.category=''
       this.viewAllowed=''
-      this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,buscador)
+      this.getPeople(0,8,this.profile.membresia,this.token,"","",buscador)
     })
   }
   // array = []
