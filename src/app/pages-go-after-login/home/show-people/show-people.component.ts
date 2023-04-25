@@ -32,7 +32,7 @@ export class ShowPeopleComponent implements OnInit {
   ngOnInit(): void {
     this.profile = this.loginService.getProfile()
     this.token= this.handleToken.getToken()
-    this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
+    this.getPeople(0,8,this.profile.membresia,this.token,this.category,this.buscador)
     this.obtenerCantidadElementosEnLaApi()
     console.log(this.profile.membresia)
 
@@ -43,24 +43,16 @@ export class ShowPeopleComponent implements OnInit {
         this.numeroDePeopleEnLaApiRest= data.numero
       })
     
-      this.getPeople(0,8,this.profile.membresia,this.token,this.category,"","")
+      this.getPeople(0,8,this.profile.membresia,this.token,this.category,"")
     })
 
-    this.comunicacionEntreHermanos.viewAllowed$.subscribe( viewAllowed =>{
-      this.viewAllowed = viewAllowed
-      this.peopleService.getCountByViewAllowedFreeAndPlatinoPeople(viewAllowed)
-      .subscribe((data:NumeroPeople) =>{
-        this.numeroDePeopleEnLaApiRest= data.numero
-      })
-    
-      this.getPeople(0,8,this.profile.membresia,this.token,"",viewAllowed,"")
-    })
+   
 
     this.comunicacionEntreHermanos.buscador$.subscribe( buscador =>{
       this.buscador = buscador
       this.category=''
       this.viewAllowed=''
-      this.getPeople(0,8,this.profile.membresia,this.token,"","",buscador)
+      this.getPeople(0,8,this.profile.membresia,this.token,"",buscador)
     })
   }
   // array = []
@@ -76,8 +68,8 @@ export class ShowPeopleComponent implements OnInit {
   // }
 
 
-    getPeople(skip,limit,membresia,token,category,viewAllowed="",buscador){
-      this.peopleService.getPeople(skip,limit,membresia,token,category,viewAllowed,buscador)
+    getPeople(skip,limit,membresia,token,category,buscador){
+      this.peopleService.getPeople(skip,limit,membresia,token,category,buscador)
       .subscribe(
         (data)=>{
           console.log(data)
@@ -94,7 +86,7 @@ export class ShowPeopleComponent implements OnInit {
     //este metodo recibe el outpu del componente hijo que es el paginator
     //con esa data recibe los valores de skip y limit para hacer un request indicando el limite y el salto
     getDataToPaginate(respuesta) {
-      this.peopleService.getPeople(respuesta.skip,respuesta.limit,this.profile.membresia,this.token,this.category,this.viewAllowed,this.buscador)
+      this.peopleService.getPeople(respuesta.skip,respuesta.limit,this.profile.membresia,this.token,this.category,this.buscador)
       .subscribe(
         (data)=>{
           this.people = data

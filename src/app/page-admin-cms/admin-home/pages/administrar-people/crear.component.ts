@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { FormBuilder,FormControl, FormGroup,Validators , FormArray} from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { PeopleService } from 'src/app/services/people.service';
@@ -11,6 +11,7 @@ import { PeopleService } from 'src/app/services/people.service';
 })
 export class CrearComponent implements OnInit {
   token
+  sexo= new FormControl('', Validators.required)
   // variables to control error messages
   successRegisted = false
   serverInternalError=false
@@ -28,17 +29,22 @@ export class CrearComponent implements OnInit {
       //because if the user does not touch it, it is sent as an empty string and that gives an error 
       //in the rest api because it expects a boolean in this field
       photo: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required),
-      viewAllowed: new FormControl('', Validators.required)
+    
+      category: this.fb.array([
+
+      ])
     });
-  
+    
   // dateAdapter and dateAdapter.setLocale are 
   // to Data picker element from angular material
   constructor(private dateAdapter: DateAdapter<Date> ,
               private peopleService:PeopleService,
-              private handleToken:HandleTokensService)
+              private handleToken:HandleTokensService,
+              private fb: FormBuilder
+              )
                { 
                this.dateAdapter.setLocale('es')
+               
   }
  
   ngOnInit(): void {
@@ -55,11 +61,25 @@ export class CrearComponent implements OnInit {
   get name() { return this.form.get('name'); }
   get birthDay() { return this.form.get('birthDay'); }
   get photo() { return this.form.get('photo'); }
-  get category() { return this.form.get('category'); }
-  get viewAllowed() { return this.form.get('viewAllowed'); }
+  get category() {
+    return this.form.get('category') as FormArray;
+  }
+
 
   createPerson(){
+     this.category.push(this.sexo)
+     if(this.form.get('passAway').value===true){
+      this.category.push(new FormControl('dead', Validators.required))
+    }else{
+      this.category.push(new FormControl('alive', Validators.required))
+    }
     console.log(this.form.value)
+    //contruyo array para la propuedad categoria
+   
+   
+ 
+
+
     // I added these two validations so when the value in those fiels is  null so it will  never to be sent
     // since somehow even though angular added default values ​​sometimes null was sent
     if(this.form.get('yearPassAway').value===null){

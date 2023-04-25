@@ -19,16 +19,7 @@ export class ComunicacionEntreHermanosService {
   /////////////////////////////
 
 
- //creo un observable
-  private viewAllowedSource = new BehaviorSubject<string>('');
-  viewAllowed$ = this.viewAllowedSource.asObservable();
-  //////////////////
-//creo un metodo que al llamarse enviara un valor al observable y desde
-  //el observable a los que esten suscriptos a el
-  enviarViewAllowed(mensaje: string) {
-    this.viewAllowedSource.next(mensaje);
-  }
-  /////////////////////////////
+ 
 
   //creo un observable
   private buscadorSource = new BehaviorSubject<string>('');

@@ -14,8 +14,7 @@ export class BuscadorComponent implements OnInit {
 
   form = new FormGroup({
     buscador: new FormControl('',Validators.required),
-    categorias: new FormControl('',[Validators.required, Validators.email]),
-    viewAllowed: new FormControl('',[Validators.required, Validators.email]),
+    categorias: new FormControl('',[Validators.required, Validators.email])
   });
   constructor(private comunicacionEntreHermanos:ComunicacionEntreHermanosService) { }
 
@@ -25,11 +24,7 @@ export class BuscadorComponent implements OnInit {
       this.comunicacionEntreHermanos.enviarCategoria(value )  
       
     });
-    this.form.get('viewAllowed').valueChanges.subscribe((value) => {
-      
-      this.comunicacionEntreHermanos.enviarViewAllowed(value )   
-      
-    });
+    
 
     this.form.get('buscador').valueChanges
     .pipe(
