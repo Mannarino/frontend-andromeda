@@ -11,7 +11,7 @@ import { PeopleService } from 'src/app/services/people.service';
 })
 export class CrearComponent implements OnInit {
   token
-  sexo= new FormControl('', Validators.required)
+  AgregarEnLista = 'Private'
   // variables to control error messages
   successRegisted = false
   serverInternalError=false
@@ -23,18 +23,19 @@ export class CrearComponent implements OnInit {
   AdminMembresia =""
   form = new FormGroup({
       name: new FormControl('',Validators.required),
-      birthDay: new FormControl('',[Validators.required]),
+      birthDay: new FormControl('',Validators.required),
       yearPassAway: new FormControl(this.defaultValueToYearPassAway),
       passAway: new FormControl(false),//It is necessary to add a default value to the checked control 
       //because if the user does not touch it, it is sent as an empty string and that gives an error 
       //in the rest api because it expects a boolean in this field
-      photo: new FormControl('', Validators.required),
+      photo: new FormControl(''),
     
       category: this.fb.array([
 
       ])
     });
-    
+   sexo= new FormControl('man')  
+   tipoDeLista= new FormControl('Private')  
   // dateAdapter and dateAdapter.setLocale are 
   // to Data picker element from angular material
   constructor(private dateAdapter: DateAdapter<Date> ,
@@ -56,8 +57,12 @@ export class CrearComponent implements OnInit {
     this.form.get('passAway').valueChanges.subscribe(value=>{
       this.showDatePickerOfPassAway=value
     })
+    this.tipoDeLista.valueChanges.subscribe(value=>{
+       this.AgregarEnLista=value
+    })
    }
-
+   
+ 
   get name() { return this.form.get('name'); }
   get birthDay() { return this.form.get('birthDay'); }
   get photo() { return this.form.get('photo'); }
@@ -67,6 +72,7 @@ export class CrearComponent implements OnInit {
 
 
   createPerson(){
+     //contruyo array para la propuedad categoria
      this.category.push(this.sexo)
      if(this.form.get('passAway').value===true){
       this.category.push(new FormControl('dead', Validators.required))
@@ -74,7 +80,7 @@ export class CrearComponent implements OnInit {
       this.category.push(new FormControl('alive', Validators.required))
     }
     console.log(this.form.value)
-    //contruyo array para la propuedad categoria
+   
    
    
  
@@ -97,10 +103,15 @@ export class CrearComponent implements OnInit {
     }else{
       if (this.AdminMembresia==="gold"){
         console.log('se entro al golden admin')
-        this.peopleService.createPersonGoldenAdmin(this.form.value,this.token)
+        this.peopleService.createPersonListPrivate(this.form.value,this.token)
         .subscribe( 
             (data)=>{          
-                      this.form.reset()
+                      this.form.patchValue({
+                        name: '',
+                        photo:''
+                      });
+                      this.form.controls['name'].markAsPristine();
+                      this.form.controls['name'].markAsUntouched();
                       console.log( data)
                       this.successRegisted = true
                       setTimeout(()=> this.successRegisted= false,3000)
@@ -111,10 +122,13 @@ export class CrearComponent implements OnInit {
                       console.log('hubo un error' + error.message)
                     })
       }else{
-           this.peopleService.createPerson(this.form.value)
+           this.peopleService.createPersonListPublic(this.form.value)
             .subscribe( 
                 (data)=>{          
-                          this.form.reset()
+                          this.form.patchValue({
+                            name: '',
+                            photo:''
+                          });
                           console.log( data)
                           this.successRegisted = true
                           setTimeout(()=> this.successRegisted= false,3000)

@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BuscadorComponent } from './pages-go-after-login/home/buscador/buscador.component';
+import { AdministrarPublicPeopleComponent } from './pages-go-after-login/home/administrar-public-people/administrar-public-people.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { BuscadorComponent } from './pages-go-after-login/home/buscador/buscador
     ShowPeopleComponent,
     PaginationComponent,
     EditarComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    AdministrarPublicPeopleComponent
   ],
   imports: [
     BrowserModule,

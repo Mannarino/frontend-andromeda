@@ -32,21 +32,7 @@
         </div>
     </div>
     <!--end input photo-->
-    <!-- input category-->
-    <div class="mb-3 col-6">
-     <label for="exampleFormControlInput3" class="form-label">category</label>
-     <select class="form-select" aria-label="Default select example" formControlName="category" id="exampleFormControlInput3" >
-      <option value="man">man</option>
-      <option value="woman">woman</option>
-      <option value="not-specified">not-specified</option>
-    </select>
-     <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
-        <div *ngIf="category.errors.required">
-            category is required.
-        </div>
-     </div>
-    </div>
-    <!-- end input category-->
+   
     <!-- input birthDay datepicker -->
     <div class="mb-3 col-6 ">
       <mat-form-field appearance="fill">
@@ -81,21 +67,14 @@
       </mat-form-field>
     </div>
     <!-- end input passAway -->
-    <!-- select viewAllowed-->
-    <div class="mb-3 col-6" id="exampleFormControlInput5">
-      <label for="exampleFormControlInput4" class="form-label">view Allowed </label>
-      <select class="form-select" aria-label="Default select example" id="exampleFormControlInput5"  formControlName="viewAllowed">
-        <option value="free">free</option>
-        <option *ngIf="AdminMembresia=='gold'" value="gold">gold</option>
-        <option value="platino">platino</option>
-      </select>
-      <div *ngIf="viewAllowed.invalid && (viewAllowed.dirty || viewAllowed.touched)" class="alert alert-danger">
-        <div *ngIf="viewAllowed.errors.required">
-            viewAllowed is required.
-        </div>
-     </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="man">
+      <label class="form-check-label" for="inlineCheckbox2">man</label>
     </div>
-    <!-- end select viewAllowed-->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="woman">
+      <label class="form-check-label" for="inlineCheckbox2">woman</label>
+    </div>
     
     <!-- button to create person / admin gold-->
     <div class="login-botones">

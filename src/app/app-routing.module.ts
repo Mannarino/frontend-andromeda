@@ -12,6 +12,7 @@ import { ShowPeopleComponent } from './pages-go-after-login/home/show-people/sho
 import { FirstLevelGuard } from './guardianes/first-level.guard';
 import { ExitGuard } from './guardianes/exit.guard';
 import { EditarComponent } from './pages-go-after-login/home/show-people/editar/editar.component';
+import { AdministrarPublicPeopleComponent } from './pages-go-after-login/home/administrar-public-people/administrar-public-people.component';
 
 const routes: Routes = [
 	{path:'',
@@ -26,7 +27,8 @@ const routes: Routes = [
 	canDeactivate: [ ExitGuard ],
 	children:[
 	    { path:'', component: ShowPeopleComponent},
-		{ path:'editar/:id', component: EditarComponent}
+		{ path:'administrar-public-people', component: AdministrarPublicPeopleComponent},
+		{ path:'editar/:id/:publicOrprivate', component: EditarComponent}
 	]},
 	{path:'cms',
 		loadChildren: () => import('./page-admin-cms/cms.module').then(m => m.CmsModule)      

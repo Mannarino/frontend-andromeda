@@ -12,9 +12,31 @@
 <div *ngIf="AdminMembresia=='platino'" class="alert alert-info" role="alert">
   eres admin platino, puedes crear gente para las listas free y platino
 </div>
-
+<!-- message success register-->
+<div class="alert alert-success" *ngIf="successRegisted" role="alert">
+  you have registed with success
+</div>
+<!-- end message success register -->
+<!-- error message from the server-->
+<div class="alert alert-danger" *ngIf="serverInternalError" role="alert">
+  the server is not working right now, some problem are happening, try more later
+ </div>
+ <!-- end error message from the server-->
 <!--form group-->
 <form [formGroup]="form">
+    <!-- radio buttons para elegiren que lista se agregara la persona, solo disponible en membresia gold-->
+    <div *ngIf="AdminMembresia=='gold'">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="inlineCheckbox2" value="Private">
+        <label class="form-check-label" for="inlineCheckbox2">Private</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="inlineCheckbox2" value="Public">
+        <label class="form-check-label" for="inlineCheckbox2">Public</label>
+      </div> 
+    </div>
+    
+    <!-- fin radio buttons para elegir el sexo-->
     <!-- input name-->
     <div class="mb-3 col-6">
         <label for="exampleFormControlInput1" class="form-label">name</label>
@@ -72,7 +94,9 @@
       </mat-form-field>
     </div>
     <!-- end input passAway -->
-   
+    
+
+    <!-- radio buttons para elegir el sexo-->
     <div class="form-check form-check-inline">
       <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="man">
       <label class="form-check-label" for="inlineCheckbox2">man</label>
@@ -80,22 +104,19 @@
     <div class="form-check form-check-inline">
       <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="woman">
       <label class="form-check-label" for="inlineCheckbox2">woman</label>
-    </div>
-   
-    
-    
-    
+    </div> 
+    <!-- fin radio buttons para elegir el sexo-->
     
     
     
    
     <div>
        <!-- button to create person / admin platino-->
-         <button type="button" *ngIf="AdminMembresia==='platino'"  [disabled]="!form.valid" class="btn btn-primary d-inline-block" (click)="createPerson()">registrate</button>
+         <button type="button" *ngIf="AdminMembresia==='platino'|| AgregarEnLista ==='Public'"  [disabled]="!form.valid" class="btn btn-primary d-inline-block" (click)="createPerson()">crear en public</button>
        <!-- end button to create person /admin platino-->   
           
        <!-- button to create person / admin gold-->  
-         <button type="button" *ngIf="AdminMembresia==='gold'"  [disabled]="!form.valid" class="btn  btn-warning d-inline-block" (click)="createPerson()">registrate</button> 
+         <button type="button" *ngIf="AdminMembresia==='gold'&& AgregarEnLista ==='Private'"  [disabled]="!form.valid" class="btn  btn-warning d-inline-block" (click)="createPerson()">crear en private</button> 
        <!-- end button to create person / admin gold-->     
           
        <button type="button" class="btn  btn-primary d-inline-block" style="margin-left: 10px;" routerLink="/home">go home</button>   

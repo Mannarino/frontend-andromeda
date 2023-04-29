@@ -10,7 +10,6 @@ export class ComunicacionEntreHermanosService {
   private categoriaSource = new BehaviorSubject<string>('');
   categoria$ = this.categoriaSource.asObservable();
   //////////////////
-
   //creo un metodo que al llamarse enviara un valor al observable y desde
   //el observable a los que esten suscriptos a el
   enviarCategoria(mensaje: string) {
@@ -31,5 +30,21 @@ export class ComunicacionEntreHermanosService {
     this.buscadorSource.next(mensaje);
   }
   /////////////////////////////
+
+  //creo un observable
+  private tipoDeListaSource = new BehaviorSubject<string>('');
+  tipoDeLista$ = this.tipoDeListaSource.asObservable();
+  //////////////////
+  //creo un metodo que al llamarse enviara un valor al observable y desde
+  //el observable a los que esten suscriptos a el
+  enviarTipoDeLista(mensaje: string) {
+    this.tipoDeListaSource.next(mensaje);
+  }
+  /////////////////////////////
+
+
+
+
+
   constructor() { }
 }

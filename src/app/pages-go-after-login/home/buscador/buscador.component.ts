@@ -10,7 +10,7 @@ import { ComunicacionEntreHermanosService } from 'src/app/services/comunicacion-
 })
 export class BuscadorComponent implements OnInit {
   
-
+  mensajeDeTipoDeLista
 
   form = new FormGroup({
     buscador: new FormControl('',Validators.required),
@@ -33,5 +33,9 @@ export class BuscadorComponent implements OnInit {
     .subscribe( (value) =>{
       this.comunicacionEntreHermanos.enviarBuscador(value ) 
     } )
+
+    this.comunicacionEntreHermanos.tipoDeLista$.subscribe( lista =>{
+       this.mensajeDeTipoDeLista = lista
+    })
   }
 }

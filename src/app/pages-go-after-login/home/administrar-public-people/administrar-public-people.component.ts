@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HandleTokensService } from 'src/app/services/handle-tokens.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PeopleService } from 'src/app/services/people.service';
@@ -9,17 +9,16 @@ import { ComunicacionEntreHermanosService } from 'src/app/services/comunicacion-
 
 declare let alertify:any
 
-
 @Component({
-  selector: 'app-show-people',
-  templateUrl: './show-people.component.html',
-  styleUrls: ['./show-people.component.css']
+  selector: 'app-administrar-public-people',
+  templateUrl: './administrar-public-people.component.html',
+  styleUrls: ['./administrar-public-people.component.css']
 })
-export class ShowPeopleComponent implements OnInit {
+export class AdministrarPublicPeopleComponent implements OnInit {
   people
   profile
   token
-  numeroDePeopleEnLaApiRest = 8
+  numeroDePeopleEnLaApiRest 
   category
   buscador
   constructor(private peopleService:PeopleService,
@@ -31,25 +30,27 @@ export class ShowPeopleComponent implements OnInit {
   ngOnInit(): void {
     this.profile = this.loginService.getProfile()
     this.token= this.handleToken.getToken()
-    
-    console.log('desde show component, muestra la membresia actual del usuario logueado',this.profile.membresia)
-    this.getPeople(0,8,this.profile.membresia,this.token,'','')
-    
+    this.getPeople(0,8,'platino',this.token,this.category,this.buscador)
+    this.obtenerCantidadElementosEnLaApi()
+    console.log(this.profile.membresia)
+
     this.comunicacionEntreHermanos.categoria$.subscribe( category =>{
       this.category =category
       this.peopleService.getCountByCategoryPublicPeople(this.category)
       .subscribe((data:NumeroPeople) =>{
         this.numeroDePeopleEnLaApiRest= data.numero
       })
-      this.getPeople(0,8,this.profile.membresia,this.token,this.category,"")
-    })
-    setTimeout(()=>{this.numeroDePeopleEnLaApiRest= this.obtenerCantidadElementosEnLaApi(this.token)},5000)
     
+      this.getPeople(0,8,'platino',this.token,this.category,"")
+    })
+
+   
 
     this.comunicacionEntreHermanos.buscador$.subscribe( buscador =>{
       this.buscador = buscador
       this.category=''
-      this.getPeople(0,8,this.profile.membresia,this.token,"",buscador)
+     
+      this.getPeople(0,8,'platino',this.token,"",buscador)
     })
   }
   // array = []
@@ -66,12 +67,12 @@ export class ShowPeopleComponent implements OnInit {
 
 
     getPeople(skip,limit,membresia,token,category,buscador){
-      this.peopleService.getPeople(skip,limit,membresia,token,category,buscador)
+      this.peopleService.getPeople(skip,limit,'platino',token,category,buscador)
       .subscribe(
         (data)=>{
+          console.log(data)
           this.people = data
-          console.log(`desde show component, y el metodo getPeople, muestra el array que
-          al final se asigno a lavariable que se iterara en la vista`,this.people)
+          console.log(this.people)
           
         },
         (error)=>{
@@ -83,7 +84,7 @@ export class ShowPeopleComponent implements OnInit {
     //este metodo recibe el outpu del componente hijo que es el paginator
     //con esa data recibe los valores de skip y limit para hacer un request indicando el limite y el salto
     getDataToPaginate(respuesta) {
-      this.peopleService.getPeople(respuesta.skip,respuesta.limit,this.profile.membresia,this.token,this.category,this.buscador)
+      this.peopleService.getPeople(respuesta.skip,respuesta.limit,'platino',this.token,this.category,this.buscador)
       .subscribe(
         (data)=>{
           this.people = data
@@ -95,40 +96,53 @@ export class ShowPeopleComponent implements OnInit {
       )
      }
 
-    //  getClass(category): string {
-    //   switch (category) {
-    //     case 'free':
-    //       return 'text-bg-success';
-    //     case 'platino':
-    //       return 'text-bg-info';
-    //     case 'gold':
-    //       return 'text-bg-warning';
-    //   }
-    // } 
-    obtenerCantidadElementosEnLaApi(token):number{
-      let cantidad 
-      if(this.profile.membresia==='free'||this.profile.membresia==='platino'){
+     getClass(category): string {
+      switch (category) {
+        case 'free':
+          return 'text-bg-success';
+        case 'platino':
+          return 'text-bg-info';
+        case 'gold':
+          return 'text-bg-warning';
+      }
+    } 
+    obtenerCantidadElementosEnLaApi(){
+      
         this.peopleService.getCountPublicPeople()
         .subscribe((data:NumeroPeople) =>{
           console.log(data.numero)
-          cantidad = data.numero
-          
+          this.numeroDePeopleEnLaApiRest= data.numero
+          console.log(this.numeroDePeopleEnLaApiRest)
         })
-      }
-      if(this.profile.membresia==='gold'){
-        this.peopleService.getCountPrivatePeople(token)
-        .subscribe((data:NumeroPeople) =>{
-          console.log('desde show component, y el metodo obtener cantidadElementosEnLaApi, muestra el numero',data.numero)
-          
-          cantidad = data.numero
-          
-        })
-      }
-      return cantidad
+     
     }
 
     eliminarPersona(id){
-      console.log('solo disponible para miembros gold')
+      /*
+      * @title {String or DOMElement} The dialog title.
+      * @message {String or DOMElement} The dialog contents.
+      * @onok {Function} Invoked when the user clicks OK button.
+      * @oncancel {Function} Invoked when the user clicks Cancel button or closes the dialog.
+      *
+      * alertify.confirm(title, message, onok, oncancel);
+      *
+      */
+      alertify.confirm('eliminar persona', 'estas seguro que quieres eliminar esta persona?', ()=>{ 
+        console.log(this.people)
+        let index = this.people.findIndex(item => item._id === id);   
+        this.peopleService.deletePersonPublicById(id,this.token)
+        .subscribe( 
+            (data)=>{          
+               this.people.splice(index, 1);  
+               alertify.success('se elimino')           
+                    }
+            ,error=>{
+                      console.log('hubo un error' + error.message)
+                      alertify.error('hubo un error en operacion de eliminacion')
+                    })
+      }
+      , function(){})
+      .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}}); 
     }
 
     comprobarMembresia(){

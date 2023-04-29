@@ -20,9 +20,12 @@
     <input class="form-check-input" formControlName="categorias" type="radio" id="inlineCheckbox2" value="woman">
     <label class="form-check-label" for="inlineCheckbox2">woman</label>
   </div>
-
+  <div class="form-check form-check-inline">
+     <p *ngIf="mensajeDeTipoDeLista==='Public'">Estas viendo la <span class="badge text-bg-primary">Public list</span></p> 	
+     <p *ngIf="mensajeDeTipoDeLista==='Private'">Estas viendo la<span class="badge text-bg-warning">Private list</span></p> 
+  </div>
    <!-- end radio button-->
- 
+   
 </form>
 <!-- end form group-->
 
