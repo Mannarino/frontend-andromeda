@@ -10,9 +10,8 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LogoutComponent implements OnInit {
   profile = {name:"",email:"",membresia:""}
-  constructor(private loginService:LoginService,
-              private router: Router, 
-              private handleTokensService:HandleTokensService) { }
+  constructor(private loginService:LoginService
+              ) { }
   
   state= ""
   ngOnInit(): void {
@@ -20,9 +19,7 @@ export class LogoutComponent implements OnInit {
     this.state=this.profile.membresia
   }
   makeLogout(){
-    this.loginService.removeProfile()
-    this.router.navigate(['/login'])
-    this.handleTokensService.removeToken()
+    this.loginService.logout()
   }
 
   getClass(): string {

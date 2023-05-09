@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { HandleTokensService } from './handle-tokens.service';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router, 
+              private handleTokensService:HandleTokensService
+    ) { }
 
   loginUser(form){
     console.log(environment.url_endpoint)
@@ -30,4 +35,9 @@ export class LoginService {
     localStorage.removeItem('ProfileEmail')
     localStorage.removeItem('ProfileMembresia')
   }  
+  logout(){
+    this.removeProfile()
+    this.router.navigate(['/login'])
+    this.handleTokensService.removeToken()
+  }
 }

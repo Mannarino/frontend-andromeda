@@ -11,8 +11,9 @@ export class PeopleService {
               private comunicacionEntreHermanos:ComunicacionEntreHermanosService
     ) { }
 
-  createPersonListPublic(person){
-    return this.http.post(`${environment.url_endpoint}/people/public`,person)
+  createPersonListPublic(person,token=""){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${environment.url_endpoint}/people/public`,person,{ headers })
   }
   createPersonListPrivate(person,token=""){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -122,7 +122,7 @@ export class CrearComponent implements OnInit {
                       console.log('hubo un error' + error.message)
                     })
       }else{
-           this.peopleService.createPersonListPublic(this.form.value)
+           this.peopleService.createPersonListPublic(this.form.value,this.token)
             .subscribe( 
                 (data)=>{          
                           this.form.patchValue({
