@@ -11,10 +11,23 @@
         </div>  
       </div> 
     </div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">rol</label>
-      <input type="email" class="form-control"  formControlName="rol" id="exampleFormControlInput1" >
+  
+
+    <!-- radio buttons para elegir el rol-->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" formControlName="rol" type="radio" id="inlineCheckbox2" value="free">
+      <label class="form-check-label" for="inlineCheckbox2">free</label>
     </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" formControlName="rol" type="radio" id="inlineCheckbox2" value="platino">
+      <label class="form-check-label" for="inlineCheckbox2">platino</label>
+    </div> 
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" formControlName="rol" type="radio" id="inlineCheckbox2" value="gold">
+      <label class="form-check-label" for="inlineCheckbox2">gold</label>
+    </div> 
+    <!-- fin radio buttons para elegir el rol-->
+
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">name</label>
         <input type="email" class="form-control"  formControlName="name" id="exampleFormControlInput1" >
@@ -26,4 +39,14 @@
       <button type="button" class="btn btn-primary" [disabled]="!form.valid"  (click)="update()">loguin</button>
     </div>
   </form>
-  
+
+<!-- message success update-->
+<div class="alert alert-success" *ngIf="successUpdate" role="alert">
+  you have update with success
+</div>
+<!-- end message success update -->
+  <!-- error message from the server-->
+<div class="alert alert-danger" *ngIf="serverInternalError" role="alert">
+  the server is not working right now, some problem are happening, try more later
+ </div>
+ <!-- end error message from the server-->

@@ -17,7 +17,16 @@ export class UsersService {
   createUser(form){
     return this.http.post(`${environment.url_endpoint}/users/regist`,form)
   }
-  getAllUser(){
-    return this.http.get(`${environment.url_endpoint}/users/`)
+  getAllUser(token){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${environment.url_endpoint}/users/`,{ headers })
+  }
+  updateUser(form,id,token){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${environment.url_endpoint}/users/${id}`,form,{ headers })
+  }
+  deleteUser(id,token){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+    return this.http.delete(`${environment.url_endpoint}/users/${id}`,{ headers })
   }
 }
