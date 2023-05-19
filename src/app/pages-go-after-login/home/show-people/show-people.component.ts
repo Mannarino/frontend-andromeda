@@ -128,7 +128,33 @@ export class ShowPeopleComponent implements OnInit {
     }
 
     eliminarPersona(id){
-      console.log('solo disponible para miembros gold')
+      if(this.profile.membresia==='gold'){
+       /*
+      * @title {String or DOMElement} The dialog title.
+      * @message {String or DOMElement} The dialog contents.
+      * @onok {Function} Invoked when the user clicks OK button.
+      * @oncancel {Function} Invoked when the user clicks Cancel button or closes the dialog.
+      *
+      * alertify.confirm(title, message, onok, oncancel);
+      *
+      */
+       alertify.confirm('eliminar persona', 'estas seguro que quieres eliminar esta persona?', ()=>{ 
+        console.log(this.people)
+        let index = this.people.findIndex(item => item._id === id);   
+        this.peopleService.deletePersonPrivateById(id,this.token)
+        .subscribe( 
+            (data)=>{          
+               this.people.splice(index, 1);  
+               alertify.success('se elimino')           
+                    }
+            ,error=>{
+                      console.log('hubo un error' + error.message)
+                      alertify.error('hubo un error en operacion de eliminacion')
+                    })
+      }
+      , function(){})
+      .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}});
+    }
     }
 
     comprobarMembresia(){
