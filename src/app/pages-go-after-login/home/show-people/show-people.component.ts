@@ -22,6 +22,7 @@ export class ShowPeopleComponent implements OnInit {
   numeroDePeopleEnLaApiRest = 8
   category
   buscador
+  listaVacia: boolean = false;
   constructor(private peopleService:PeopleService,
                private loginService:LoginService,
                private handleToken:HandleTokensService,
@@ -87,6 +88,7 @@ export class ShowPeopleComponent implements OnInit {
       .subscribe(
         (data)=>{
           this.people = data
+          this.listaVacia = this.people.length === 0;
           console.log(this.people)
         },
         (error)=>{
