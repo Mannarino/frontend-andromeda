@@ -27,12 +27,12 @@
     <!-- radio buttons para elegiren que lista se agregara la persona, solo disponible en membresia gold-->
     <div *ngIf="AdminMembresia=='gold'">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="inlineCheckbox2" value="Private">
-        <label class="form-check-label" for="inlineCheckbox2">Private</label>
+        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="radioPrivate" value="Private">
+        <label class="form-check-label" for="radioPrivate">Private</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="inlineCheckbox2" value="Public">
-        <label class="form-check-label" for="inlineCheckbox2">Public</label>
+        <input class="form-check-input" [formControl]="tipoDeLista" type="radio" id="radioPublic" value="Public">
+        <label class="form-check-label" for="radioPublic">Public</label>
       </div> 
     </div>
     
@@ -98,12 +98,12 @@
 
     <!-- radio buttons para elegir el sexo-->
     <div class="form-check form-check-inline">
-      <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="man">
-      <label class="form-check-label" for="inlineCheckbox2">man</label>
+      <input class="form-check-input" [formControl]="sexo" type="radio" id="radioMan" value="man">
+      <label class="form-check-label" for="radioMan">man</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" [formControl]="sexo" type="radio" id="inlineCheckbox2" value="woman">
-      <label class="form-check-label" for="inlineCheckbox2">woman</label>
+      <input class="form-check-input" [formControl]="sexo" type="radio" id="radioWoman" value="woman">
+      <label class="form-check-label" for="radioWoman">woman</label>
     </div> 
     <!-- fin radio buttons para elegir el sexo-->
     

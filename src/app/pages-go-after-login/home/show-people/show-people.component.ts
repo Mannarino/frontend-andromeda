@@ -22,7 +22,9 @@ export class ShowPeopleComponent implements OnInit {
   numeroDePeopleEnLaApiRest = 8
   category
   buscador
-  listaVacia: boolean = false;
+  cargando = true
+  listaVacia: boolean = false
+
   constructor(private peopleService:PeopleService,
                private loginService:LoginService,
                private handleToken:HandleTokensService,
@@ -70,6 +72,7 @@ export class ShowPeopleComponent implements OnInit {
       this.peopleService.getPeople(skip,limit,membresia,token,category,buscador)
       .subscribe(
         (data)=>{
+          this.cargando = false
           this.people = data
           console.log(`desde show component, y el metodo getPeople, muestra el array que
           al final se asigno a lavariable que se iterara en la vista`,this.people)
@@ -142,7 +145,7 @@ export class ShowPeopleComponent implements OnInit {
       */
        alertify.confirm('eliminar persona', 'estas seguro que quieres eliminar esta persona?', ()=>{ 
         console.log(this.people)
-        let index = this.people.findIndex(item => item._id === id);   
+        let index = this.people.findIndex(item => item._id === id)   
         this.peopleService.deletePersonPrivateById(id,this.token)
         .subscribe( 
             (data)=>{          
@@ -155,7 +158,7 @@ export class ShowPeopleComponent implements OnInit {
                     })
       }
       , function(){})
-      .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}});
+      .set({labels:{ok:'Aceptar', cancel: 'Cancelar'}})
     }
     }
 

@@ -18,7 +18,12 @@ img{
   height: 200px;
   margin-top: 20px;
 }
-
+.cargando {
+  display: flex;
+  flex-direction: row; /* Alinea los elementos en una fila horizontal */
+  justify-content: flex-start; 
+  width: 100%;
+}
 @media (max-width:820px) {
   :host{
     grid-template-columns: repeat(3,1fr);  
